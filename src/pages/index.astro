@@ -1,11 +1,15 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.buil
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<div class="min-h-screen bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+		<div class="bg-white p-8 rounded-lg shadow-2xl max-w-md">
+			<h1 class="text-4xl font-bold text-gray-800 mb-4">¡Tailwind CSS Funciona!</h1>
+			<p class="text-gray-600 mb-6">Si ves este mensaje con estilos, Tailwind CSS está configurado correctamente.</p>
+			<button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300">
+				Botón de Prueba
+			</button>
+		</div>
+	</div>
 </Layout>
