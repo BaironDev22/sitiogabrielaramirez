@@ -1,15 +1,292 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import AboutMission from '../components/sections/AboutMission.astro';
+import Button from '../components/ui/Button.astro';
 ---
 
-<Layout>
-	<div class="min-h-screen bg-linear-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-		<div class="bg-white p-8 rounded-lg shadow-2xl max-w-md">
-			<h1 class="text-4xl font-bold text-gray-800 mb-4">¡Tailwind CSS Funciona!</h1>
-			<p class="text-gray-600 mb-6">Si ves este mensaje con estilos, Tailwind CSS está configurado correctamente.</p>
-			<button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded transition duration-300">
-				Botón de Prueba
-			</button>
-		</div>
+<Layout title="SexoloGabi - Inteligencia Sexual Consciente">
+	<Header />
+	
+	<!-- Background decorativo global -->
+	<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+		<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/3"></div>
+		<div class="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-cta/3 rounded-full blur-[120px] -translate-x-1/2"></div>
 	</div>
+
+	<main class="relative z-10">
+		<Hero />
+		<AboutMission />
+
+		<!-- Separador decorativo -->
+		<div class="flex justify-center py-10 relative z-10 opacity-50">
+			<svg class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 20 20">
+				<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+			</svg>
+		</div>
+
+		<!-- Sección: El Estudio Digital -->
+		<section class="relative min-h-screen flex items-center py-20 px-6 md:px-20 lg:px-40" id="studio">
+			<div class="absolute left-10 lg:left-20 top-0 bottom-0 w-[1px] bg-linear-to-b from-transparent via-secondary to-transparent hidden lg:block"></div>
+			
+			<div class="max-w-[1200px] mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+				<!-- Contenido -->
+				<div class="order-2 lg:order-1 flex flex-col items-start gap-8">
+					<span class="inline-flex items-center gap-2 text-accent font-medium tracking-widest text-xs uppercase">
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+						</svg>
+						El Estudio Digital
+					</span>
+
+					<h2 class="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-dark">
+						Alquimia en la <br/>
+						<span class="text-transparent bg-clip-text bg-linear-to-r from-accent to-cta">Intimidad</span>
+					</h2>
+
+					<p class="text-lg text-accent/80 font-light max-w-md leading-relaxed">
+						Donde la curiosidad se convierte en arte. Un espacio educativo diseñado para despertar tus sentidos y explorar tu conexión más profunda, libre de juicios y tabúes.
+					</p>
+
+					<div class="flex flex-col gap-3 mt-4">
+						<Button variant="primary" size="lg" href="#" class="min-w-[240px]">
+							Unirse al Estudio
+							<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+							</svg>
+						</Button>
+						<span class="text-xs text-center text-accent/60 font-medium tracking-wide">
+							Acceso exclusivo | $22 USD/mes
+						</span>
+					</div>
+				</div>
+
+				<!-- Imagen -->
+				<div class="order-1 lg:order-2 relative group">
+					<div class="absolute inset-0 bg-accent/10 rounded-full blur-2xl transform group-hover:scale-105 transition-transform duration-700"></div>
+					<div class="relative w-full aspect-4/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
+						<div class="absolute inset-0 bg-black/10 z-10"></div>
+						<div class="w-full h-full bg-linear-to-br from-secondary to-accent/20 flex items-center justify-center transition-transform duration-1000 group-hover:scale-110">
+							<div class="text-center space-y-4 p-8">
+								<svg class="w-24 h-24 mx-auto text-accent/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+								</svg>
+								<p class="text-accent/70 font-medium">Imagen: Arte suave y abstracto</p>
+							</div>
+						</div>
+						<div class="absolute bottom-8 left-8 right-8 z-20 backdrop-blur-md bg-white/30 p-6 rounded-2xl border border-white/20">
+							<p class="font-serif italic text-dark text-lg">"Despierta tu curiosidad."</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Separador decorativo -->
+		<div class="flex justify-center py-10 relative z-10 opacity-50">
+			<svg class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 20 20">
+				<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+			</svg>
+		</div>
+
+		<!-- Sección: Membresía Alquimia -->
+		<section class="relative py-20 px-6 md:px-20 lg:px-40 bg-secondary/30" id="sanctuary">
+			<div class="max-w-[1000px] mx-auto w-full flex flex-col gap-16">
+				<div class="text-center space-y-4">
+					<span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-accent/20 text-accent mb-4">
+						<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+							<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+						</svg>
+					</span>
+					<h2 class="font-serif text-4xl md:text-5xl text-dark leading-tight">Membresía Alquimia</h2>
+					<p class="text-accent max-w-lg mx-auto font-serif italic text-xl">"Tu santuario diario"</p>
+					<p class="text-accent/80 max-w-lg mx-auto text-sm">
+						Un círculo VIP donde la intimidad se encuentra con la inspiración diaria y la conexión sin filtros.
+					</p>
+				</div>
+
+				<!-- Grid de beneficios -->
+				<div class="grid md:grid-cols-3 gap-6">
+					<div class="bg-white p-8 rounded-[2rem] border border-secondary hover:border-accent/30 transition-colors group">
+						<div class="bg-accent/5 w-12 h-12 rounded-full flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+							</svg>
+						</div>
+						<h3 class="font-bold text-lg mb-2 text-dark">Inspiración Diaria</h3>
+						<p class="text-sm text-accent/70">Reflexiones y poesía entregadas a tu dispositivo cada mañana.</p>
+					</div>
+
+					<div class="bg-white p-8 rounded-[2rem] border border-secondary hover:border-accent/30 transition-colors group md:-translate-y-4 shadow-xl shadow-secondary/50">
+						<div class="bg-accent/5 w-12 h-12 rounded-full flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+							</svg>
+						</div>
+						<h3 class="font-bold text-lg mb-2 text-dark">Círculo Privado</h3>
+						<p class="text-sm text-accent/70">Acceso directo a una comunidad exclusiva y cercana.</p>
+					</div>
+
+					<div class="bg-white p-8 rounded-[2rem] border border-secondary hover:border-accent/30 transition-colors group">
+						<div class="bg-accent/5 w-12 h-12 rounded-full flex items-center justify-center text-accent mb-6 group-hover:bg-accent group-hover:text-white transition-colors">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+							</svg>
+						</div>
+						<h3 class="font-bold text-lg mb-2 text-dark">Contenido Inédito</h3>
+						<p class="text-sm text-accent/70">Material íntimo y exclusivo, no disponible en redes sociales.</p>
+					</div>
+				</div>
+
+				<div class="flex flex-col items-center gap-3">
+					<Button variant="outline" size="lg" href="https://t.me/your_channel" class="min-w-[200px]">
+						Entrar al Círculo VIP
+					</Button>
+					<span class="text-xs text-accent/60 font-medium">$10 USD</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- Separador decorativo -->
+		<div class="flex justify-center py-10 relative z-10 opacity-50">
+			<svg class="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 20 20">
+				<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+			</svg>
+		</div>
+
+		<!-- Sección: Tu Maestría Íntima -->
+		<section class="relative py-20 px-6 md:px-20 lg:px-40" id="mastery">
+			<div class="max-w-[1200px] mx-auto w-full">
+				<div class="bg-white rounded-[3rem] overflow-hidden border border-secondary shadow-2xl">
+					<div class="flex flex-col lg:flex-row">
+						<!-- Imagen -->
+						<div class="lg:w-1/2 min-h-[400px] lg:min-h-full relative">
+							<div class="absolute inset-0 bg-linear-to-br from-secondary to-accent/20 flex items-center justify-center">
+								<div class="text-center space-y-4 p-8">
+									<svg class="w-24 h-24 mx-auto text-accent/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+									</svg>
+									<p class="text-accent/70 font-medium">Imagen: Manos con cuaderno</p>
+								</div>
+							</div>
+							<div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-10">
+								<div class="text-white">
+									<p class="font-serif italic text-2xl mb-2">"La verdadera maestría comienza dentro."</p>
+									<div class="h-1 w-12 bg-accent rounded-full"></div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Contenido -->
+						<div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+							<h2 class="font-serif text-4xl mb-6 text-dark">Tu Maestría Íntima</h2>
+							<p class="text-accent/80 text-lg leading-relaxed mb-8">
+								Un viaje profundo de autodescubrimiento. Esta masterclass ofrece un camino estructurado para desbloquear tu potencial, guiado por la experiencia y la empatía.
+							</p>
+
+							<div class="grid grid-cols-2 gap-4 mb-10">
+								<div class="flex items-center gap-2">
+									<svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+									</svg>
+									<span class="text-sm font-medium text-dark">Comunicación</span>
+								</div>
+								<div class="flex items-center gap-2">
+									<svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+									</svg>
+									<span class="text-sm font-medium text-dark">Energía</span>
+								</div>
+								<div class="flex items-center gap-2">
+									<svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+									</svg>
+									<span class="text-sm font-medium text-dark">Tantra</span>
+								</div>
+								<div class="flex items-center gap-2">
+									<svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+									</svg>
+									<span class="text-sm font-medium text-dark">Masaje</span>
+								</div>
+							</div>
+
+							<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-secondary pt-8">
+								<div class="flex flex-col">
+									<span class="text-xs text-accent uppercase tracking-wider mb-1">Acceso de por vida</span>
+									<span class="font-serif text-2xl text-dark">$49 USD</span>
+								</div>
+								<Button variant="primary" size="md" href="#" class="w-full sm:w-auto">
+									Comenzar Maestría
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Separador decorativo -->
+		<div class="flex justify-center py-10 relative z-10 opacity-50">
+			<svg class="w-10 h-10 text-accent transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+			</svg>
+		</div>
+
+		<!-- Sección: Retiro en Brasil -->
+		<section class="relative py-20 pb-32 px-6 md:px-20 lg:px-40" id="retreat">
+			<div class="max-w-[1200px] mx-auto w-full relative">
+				<div class="absolute -top-10 -right-10 w-32 h-32 border border-accent/20 rounded-full hidden md:block"></div>
+				
+				<div class="relative rounded-[2.5rem] overflow-hidden min-h-[600px] flex items-end">
+					<div class="absolute inset-0 bg-linear-to-br from-accent/40 to-cta/40 transition-transform duration-[2s] hover:scale-105 flex items-center justify-center">
+						<div class="text-center space-y-4 p-8">
+							<svg class="w-32 h-32 mx-auto text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<p class="text-white font-medium text-lg">Imagen: Paisaje brasileño con colinas verdes al amanecer</p>
+						</div>
+					</div>
+					<div class="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"></div>
+					
+					<div class="relative z-10 w-full p-8 md:p-16 lg:p-20 flex flex-col md:flex-row md:items-end justify-between gap-10">
+						<div class="max-w-xl">
+							<div class="flex items-center gap-2 text-accent mb-4">
+								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+								</svg>
+								<span class="text-xs font-bold uppercase tracking-widest text-white/90">El Retiro</span>
+							</div>
+							<h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6">
+								Inmersión en el <br/>Paraíso
+							</h2>
+							<p class="text-white/80 text-lg md:text-xl font-light font-serif italic mb-2">
+								"Conexión en cada respiro..."
+							</p>
+							<p class="text-white/70 text-base max-w-md">
+								Una experiencia física definitiva en los paisajes de Brasil. Desconecta para reconectar en el entorno más lujoso que la naturaleza puede ofrecer.
+							</p>
+						</div>
+
+						<div class="flex flex-col gap-4 min-w-[200px]">
+							<Button variant="outline" size="lg" href="/formulario-retiro" class="bg-white/10 backdrop-blur-md hover:bg-accent border-white/30 text-white group">
+								Aplicar al Retiro
+								<svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+								</svg>
+							</Button>
+							<div class="text-right">
+								<span class="text-xs text-white/50 block mb-1">Cupos limitados</span>
+								<span class="text-white font-medium text-sm">Solo 10 parejas</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
 </Layout>
