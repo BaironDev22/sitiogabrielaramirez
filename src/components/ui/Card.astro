@@ -18,9 +18,9 @@ const paddings = {
   lg: 'p-8'
 };
 
-const hoverStyles = hover ? 'hover:shadow-2xl hover:-translate-y-2 hover:shadow-coral-300/50' : '';
+const hoverStyles = hover ? 'hover:shadow-2xl hover:-translate-y-1 hover:shadow-black/10' : '';
 
-const classes = `bg-main rounded-2xl shadow-lg shadow-coral-200/30 transition-all duration-300 ${paddings[padding]} ${hoverStyles} ${className}`;
+const classes = `bg-main rounded-2xl shadow-md shadow-black/5 transition-all duration-300 ${paddings[padding]} ${hoverStyles} ${className}`;
 ---
 
 <div class={classes}>

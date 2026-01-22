@@ -4,43 +4,43 @@ import Button from '../ui/Button.astro';
 import Card from '../ui/Card.astro';
 ---
 
-<section class="py-20 bg-gradient-to-b from-coral-50 to-peach-50">
-  <div class="container mx-auto px-4">
+<section class="py-24 bg-secondary/5">
+  <div class="container mx-auto px-6 max-w-7xl">
     <div class="max-w-6xl mx-auto">
       
       <!-- Título -->
-      <div class="text-center mb-16">
-        <div class="inline-block mb-4">
-          <span class="text-accent font-medium tracking-wider uppercase text-sm border border-accent px-4 py-2 rounded-full">
+      <div class="text-center mb-20">
+        <div class="inline-block mb-6">
+          <span class="text-coral-500 font-medium tracking-widest uppercase text-xs border border-coral-300 px-5 py-2.5 rounded-full">
             Experiencias Transformadoras
           </span>
         </div>
-        <h2 class="text-4xl lg:text-5xl font-serif font-bold text-dark mb-4">
-          Espacios de <span class="text-accent font-italianno text-5xl lg:text-6xl">Profundidad</span>
+        <h2 class="text-5xl lg:text-6xl font-serif font-normal text-dark mb-6 leading-[1.1]">
+          Espacios de <span class="text-coral-500 font-italianno text-6xl lg:text-7xl">Profundidad</span>
         </h2>
-        <p class="text-lg text-dark/70 max-w-2xl mx-auto">
+        <p class="text-lg text-dark/60 max-w-2xl mx-auto font-light">
           No es consumo rápido. Es entrenamiento íntimo consciente.
         </p>
       </div>
 
       <!-- Grid de productos -->
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="grid md:grid-cols-2 gap-10 mb-12">
         
         <!-- Producto 1: Membresía Alquimia -->
-        <Card hover padding="lg" class="border border-accent/20">
-          <div class="space-y-4">
+        <Card hover padding="lg" class="border border-gray-200 shadow-lg shadow-black/5">
+          <div class="space-y-5">
             <div class="flex items-start justify-between">
               <div>
-                <span class="text-xs font-semibold text-coral-700 uppercase tracking-wider bg-coral-100 px-3 py-1 rounded-full">
+                <span class="text-xs font-medium text-coral-600 uppercase tracking-wider bg-coral-50 px-4 py-2 rounded-full">
                   Mid Ticket
                 </span>
-                <h3 class="text-2xl font-serif font-bold text-dark mt-3">
+                <h3 class="text-2xl font-serif font-normal text-dark mt-4">
                   Membresía Alquimia
                 </h3>
               </div>
               <div class="text-right">
-                <p class="text-3xl font-bold text-cta">$10</p>
-                <p class="text-sm text-muted">USD/mes</p>
+                <p class="text-3xl font-normal text-coral-600">$10</p>
+                <p class="text-sm text-gray-500 font-light">USD/mes</p>
               </div>
             </div>
             
@@ -70,7 +70,7 @@ import Card from '../ui/Card.astro';
         </Card>
 
         <!-- Producto 2: Tu Maestría Íntima -->
-        <Card hover padding="lg" class="border border-peach-300 bg-gradient-to-br from-main via-peach-50 to-sun-50">
+        <Card hover padding="lg" class="border border-coral-200 bg-gradient-to-br from-main to-secondary/20 shadow-lg shadow-black/5">
           <div class="space-y-4">
             <div class="flex items-start justify-between">
               <div>
