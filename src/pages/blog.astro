@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import BlogCard from '../components/ui/BlogCard.astro';
+
+// Obtener todos los artículos del blog, ordenados por fecha
+const allBlogPosts = await getCollection('blog');
+const sortedPosts = allBlogPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Agrupar por categoría
+const categories = ['EDUCACIÓN', 'MINDFULNESS', 'LIFESTYLE', 'PRÓXIMAMENTE'];
+---
+
+<Layout title="Blog - Sexoguía | SexoloGabi">
+  <div class="relative z-10">
+    
+    <!-- Hero del Blog -->
+    <section class="relative py-24 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-coral-50/30 to-transparent">
+      <div class="max-w-7xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-coral-500 mb-4">
+          EL BLOG
+        </span>
+        <h1 class="font-italianno text-7xl md:text-8xl lg:text-9xl text-dark mb-6">
+          Sexoguía
+        </h1>
+        <p class="text-lg md:text-xl text-dark/70 max-w-2xl mx-auto font-light">
+          Explorando la sexualidad consciente, el bienestar íntimo y el crecimiento personal.
+        </p>
+      </div>
+    </section>
+
+    <!-- Filtros por categoría (opcional) -->
+    <section class="px-6 md:px-12 lg:px-20 -mt-8 relative z-10">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap gap-3 justify-center">
+          {categories.map((cat) => (
+            <button class="px-5 py-2.5 text-sm font-medium tracking-wide uppercase rounded-full transition-all hover:bg-coral-100 hover:text-coral-600 bg-white border border-gray-200 text-dark/70">
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid de todos los artículos -->
+    <section class="py-16 px-6 md:px-12 lg:px-20">
+      <div class="max-w-7xl mx-auto">
+        {sortedPosts.length > 0 ? (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+            {sortedPosts.map((post) => (
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                category={post.data.category}
+                image={post.data.image}
+                slug={post.slug}
+              />
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-20">
+            <p class="text-dark/60 text-lg">Aún no hay artículos publicados.</p>
+          </div>
+        )}
+      </div>
+    </section>
+
+  </div>
+</Layout>

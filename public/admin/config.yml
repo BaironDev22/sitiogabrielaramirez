@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: BaironDev22/sitiogabrielaramirez
+  branch: main # o la rama que uses
+
+# Para desarrollo local
+local_backend: true
+
+# Configuración de medios
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+# Configuración de colecciones
+collections:
+  - name: "blog"
+    label: "Artículos del Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Título", name: "title", widget: "string", required: true }
+      - { label: "Descripción", name: "description", widget: "text", required: true }
+      - { label: "Fecha de Publicación", name: "pubDate", widget: "datetime", required: true }
+      - { 
+          label: "Categoría", 
+          name: "category", 
+          widget: "select", 
+          options: ["EDUCACIÓN", "MINDFULNESS", "LIFESTYLE", "PRÓXIMAMENTE"],
+          required: true
+        }
+      - { label: "Imagen Destacada", name: "image", widget: "image", required: true }
+      - { label: "Autor", name: "author", widget: "string", default: "Gabriela Ramírez" }
+      - { label: "Contenido", name: "body", widget: "markdown", required: true }
