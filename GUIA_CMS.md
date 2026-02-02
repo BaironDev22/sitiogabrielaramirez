@@ -4,7 +4,7 @@
 
 Para acceder al panel de administración del blog, visita:
 ```
-http://localhost:4321/admin (en desarrollo)
+http://localhost:4322/admin (en desarrollo)
 https://tu-sitio.com/admin (en producción)
 ```
 
@@ -151,7 +151,7 @@ Si quieres probar el CMS localmente:
    ```bash
    npx decap-server
    ```
-5. Accede a `http://localhost:4321/admin`
+5. Accede a `http://localhost:4322/admin` (o el puerto que Astro esté usando)
 
 ## Solución de problemas
 

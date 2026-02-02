@@ -85,7 +85,7 @@ sitiogabrielaramirez/
 
 1. **Acceder al CMS**:
    - En producción: `https://tu-sitio.com/admin`
-   - En local: `http://localhost:4322/admin`
+   - En local: `http://localhost:4322/admin` (o el puerto que muestre Astro)
 
 2. **Crear un artículo**:
    - Click en "Nuevo Artículo del Blog"
@@ -169,8 +169,13 @@ npm run dev
 # Terminal 2:
 npx decap-server
 
-# Luego visita:
+# Luego visita (usa el puerto que muestre Astro):
 http://localhost:4322/admin
+
+# IMPORTANTE: 
+# - El servidor de Astro (npm run dev) sirve el CMS en /admin
+# - El servidor de Decap (npx decap-server) solo es un proxy en puerto 8081
+# - Debes acceder a través del servidor de Astro, NO al puerto 8081
 ```
 
 ## 💡 Consejos para la dueña
