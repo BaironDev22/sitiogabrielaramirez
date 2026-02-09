@@ -1,0 +1,94 @@
+---
+import TeamMemberCard from '../ui/TeamMemberCard.astro';
+import PartnersCarousel from '../ui/PartnersCarousel.astro';
+
+const teamMembers = [
+	{
+		name: "Gabriela Ramírez",
+		role: "FUNDADORA & SEXÓLOGA CLÍNICA",
+		description: "Especialista en trauma y reconexión somática con más de 15 años de experiencia clínica. Su enfoque único integra la ciencia sexológica con prácticas ancestrales para liberar el potencial del cuerpo.",
+		image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800",
+		tags: ["Trauma", "Somática", "Tantra"],
+		badge: "FUNDADORA",
+		featured: true
+	},
+	{
+		name: "Carolina",
+		role: "FISIOTERAPEUTA SOMÁTICA",
+		description: "Integra la fisiología moderna con prácticas ancestrales de mindfulness y respiración.",
+		image: "https://images.pexels.com/photos/3768894/pexels-photo-3768894.jpeg?auto=compress&cs=tinysrgb&w=800",
+		tags: ["Mindfulness", "Respiración", "Somática"],
+	},
+	{
+		name: "Sebastian",
+		role: "MÉTODO RECONECTA",
+		description: "Experto en dinámicas relacionales y comunicación no violenta para parejas.",
+		image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=800",
+		tags: ["Parejas", "Comunicación", "Vínculo"],
+	},
+];
+---
+
+<section class="relative py-24 px-6 md:px-12 lg:px-20 bg-linear-to-b from-white to-secondary/10" id="team">
+	<div class="max-w-300 mx-auto w-full">
+		<!-- Header -->
+		<div class="text-center mb-16">
+			<h2 class="font-serif text-4xl md:text-5xl text-dark mb-4">
+				Equipo & Partners
+			</h2>
+			<p class="text-accent/70 max-w-2xl mx-auto font-serif italic text-lg">
+				Expertos dedicados y aliados estratégicos para tu bienestar.
+			</p>
+		</div>
+
+		<!-- Grid de equipo: 2 columnas - Gabriela a la izquierda, colaboradores a la derecha -->
+		<div class="grid lg:grid-cols-2 gap-6 mb-16">
+			<!-- Gabriela - Mitad izquierda completa (layout vertical) -->
+			<div class="flex">
+				<TeamMemberCard 
+					name={teamMembers[0].name}
+					role={teamMembers[0].role}
+					description={teamMembers[0].description}
+					image={teamMembers[0].image}
+					tags={teamMembers[0].tags}
+					badge={teamMembers[0].badge}
+					featured={teamMembers[0].featured}
+					layout="vertical"
+				/>
+			</div>
+
+			<!-- Colaboradores - Mitad derecha: Carolina y Sebastian apilados (layout horizontal) -->
+			<div class="grid gap-5">
+				<!-- Carolina -->
+				<TeamMemberCard 
+					name={teamMembers[1].name}
+					role={teamMembers[1].role}
+					description={teamMembers[1].description}
+					image={teamMembers[1].image}
+					tags={teamMembers[1].tags}
+					layout="horizontal"
+				/>
+
+				<!-- Sebastian -->
+				<TeamMemberCard 
+					name={teamMembers[2].name}
+					role={teamMembers[2].role}
+					description={teamMembers[2].description}
+					image={teamMembers[2].image}
+					tags={teamMembers[2].tags}
+					layout="horizontal"
+				/>
+			</div>
+		</div>
+
+		<!-- Separador decorativo -->
+		<div class="flex justify-center py-8 opacity-50">
+			<svg class="w-10 h-10 text-coral-400" fill="currentColor" viewBox="0 0 20 20">
+				<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+			</svg>
+		</div>
+
+		<!-- Carrusel de aliados -->
+		<PartnersCarousel />
+	</div>
+</section>
