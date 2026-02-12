@@ -4,7 +4,7 @@ backend:
   branch: main
 
 # Para desarrollo local (comentar en producción)
-#local_backend: false
+local_backend: true
 
 # Configuración de medios
 media_folder: "public/images/blog"
