@@ -19,33 +19,96 @@ const partners: Partner[] = [
 		</p>
 	</div>
 
-	<!-- Carrusel con scroll horizontal -->
+	<!-- Carrusel Embla -->
 	<div class="max-w-300 mx-auto px-6">
-		<div class="flex justify-center gap-8 md:gap-12 lg:gap-16 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 md:overflow-visible">
-			{partners.map((partner) => (
-				<div class="shrink-0 snap-center">
-					<div class="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center p-4 md:p-6 rounded-2xl border border-secondary bg-white hover:border-coral-300 transition-all duration-300 hover:shadow-lg group">
-						<!-- Placeholder para logos -->
-						<div class="text-center">
-							<svg class="w-8 h-8 md:w-10 md:h-10 mx-auto text-accent/30 group-hover:text-coral-400 transition-colors mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-							</svg>
-							<p class="text-[9px] md:text-[10px] font-serif italic text-coral-400 leading-tight">{partner.name}</p>
+		<div class="embla" data-partners-carousel>
+			<div class="embla__container">
+				{partners.map((partner) => (
+					<div class="embla__slide">
+						<div class="flex justify-center">
+							<div class="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center p-4 md:p-6 rounded-2xl border border-secondary bg-white hover:border-coral-300 transition-all duration-300 hover:shadow-lg group">
+								<!-- Placeholder para logos -->
+								<div class="text-center">
+									<svg class="w-8 h-8 md:w-10 md:h-10 mx-auto text-accent/30 group-hover:text-coral-400 transition-colors mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+									</svg>
+									<p class="text-[9px] md:text-[10px] font-serif italic text-coral-400 leading-tight">{partner.name}</p>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
 		</div>
 	</div>
 </div>
 
-<style>
-	/* Ocultar scrollbar pero mantener funcionalidad de scroll */
-	.scrollbar-hide::-webkit-scrollbar {
-		display: none;
+<script>
+	import EmblaCarousel from 'embla-carousel';
+	import type { EmblaOptionsType } from 'embla-carousel';
+
+	const options: EmblaOptionsType = {
+		loop: true,
+		align: 'center',
+		slidesToScroll: 1,
+		skipSnaps: false,
+		dragFree: true,
+	};
+
+	const emblaNode = document.querySelector('[data-partners-carousel]') as HTMLElement;
+	
+	if (emblaNode) {
+		const embla = EmblaCarousel(emblaNode, options);
+		
+		// Auto-play suave
+		let autoplayInterval: ReturnType<typeof setInterval>;
+		
+		const startAutoplay = () => {
+			autoplayInterval = setInterval(() => {
+				embla.scrollNext();
+			}, 3000);
+		};
+		
+		const stopAutoplay = () => {
+			clearInterval(autoplayInterval);
+		};
+		
+		// Iniciar autoplay
+		startAutoplay();
+		
+		// Pausar en hover
+		emblaNode.addEventListener('mouseenter', stopAutoplay);
+		emblaNode.addEventListener('mouseleave', startAutoplay);
+		
+		// Limpiar al salir
+		embla.on('destroy', stopAutoplay);
 	}
-	.scrollbar-hide {
-		-ms-overflow-style: none;
-		scrollbar-width: none;
+</script>
+
+<style>
+	.embla {
+		overflow: hidden;
+	}
+	
+	.embla__container {
+		display: flex;
+		gap: 2rem;
+	}
+	
+	.embla__slide {
+		flex: 0 0 auto;
+		min-width: 0;
+	}
+	
+	@media (min-width: 768px) {
+		.embla__container {
+			gap: 3rem;
+		}
+	}
+	
+	@media (min-width: 1024px) {
+		.embla__container {
+			gap: 4rem;
+		}
 	}
 </style>

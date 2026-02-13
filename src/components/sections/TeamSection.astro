@@ -32,7 +32,7 @@ const teamMembers = [
 <section class="relative py-24 px-6 md:px-12 lg:px-20 bg-linear-to-b from-white to-secondary/10" id="team">
 	<div class="max-w-300 mx-auto w-full">
 		<!-- Header -->
-		<div class="text-center mb-16">
+		<div class="text-center mb-16" data-animate="fade-up">
 			<h2 class="font-serif text-4xl md:text-5xl text-dark mb-4">
 				Equipo & Partners
 			</h2>
@@ -42,7 +42,7 @@ const teamMembers = [
 		</div>
 
 		<!-- Grid de equipo: 2 columnas - Gabriela a la izquierda, colaboradores a la derecha -->
-		<div class="grid lg:grid-cols-2 gap-6 mb-16">
+		<div class="grid lg:grid-cols-2 gap-6 mb-16" data-animate="stagger">
 			<!-- Gabriela - Mitad izquierda completa (layout vertical) -->
 			<div class="flex">
 				<TeamMemberCard 
@@ -92,3 +92,8 @@ const teamMembers = [
 		<PartnersCarousel />
 	</div>
 </section>
+
+<script>
+  import { initAllMotions } from '../../utils/motionInit';
+  initAllMotions();
+</script>

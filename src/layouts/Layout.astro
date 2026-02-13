@@ -23,6 +23,12 @@ const {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<style>
+			/* Elementos con animaciones Motion empiezan ocultos */
+			[data-animate] {
+				opacity: 0;
+			}
+		</style>
 	</head>
 	<body class="bg-main text-dark">
 		<Navbar />
@@ -30,5 +36,24 @@ const {
 			<slot />
 		</main>
 		<Footer />
+
+		<!-- Lenis Smooth Scroll -->
+		<script>
+			import Lenis from '@studio-freight/lenis';
+			
+			const lenis = new Lenis({
+				duration: 1.2,
+				easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+				orientation: 'vertical',
+				smoothWheel: true,
+			});
+
+			function raf(time: number) {
+				lenis.raf(time);
+				requestAnimationFrame(raf);
+			}
+
+			requestAnimationFrame(raf);
+		</script>
 	</body>
 </html>
