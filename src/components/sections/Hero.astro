@@ -16,7 +16,7 @@ import Button from '../ui/Button.astro';
       
       <!-- Contenido principal -->
       <div class="space-y-10">
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-3" data-animate="fade-in">
           <div class="h-px w-8 bg-dark"></div>
           <p class="text-dark font-medium tracking-wider uppercase text-xs italic">
             Inteligencia Sexual · Mindfulness · Tantra Yoga
@@ -24,18 +24,18 @@ import Button from '../ui/Button.astro';
         </div>
 
         <!-- Título principal -->
-        <h1 class="text-6xl lg:text-8xl font-serif font-normal text-dark leading-[1.1]">
+        <h1 class="text-6xl lg:text-8xl font-serif font-normal text-dark leading-[1.1]" data-animate="fade-up">
           Habitar<br>
           <span class="text-coral-500 font-italianno text-7xl lg:text-9xl font-normal italic">el Deseo</span>
         </h1>
 
         <!-- Descripción -->
-        <p class="text-lg text-dark/70 leading-relaxed max-w-xl font-light">
+        <p class="text-lg text-dark/70 leading-relaxed max-w-xl font-light" data-animate="fade-up">
           Una metodología terapéutica exclusiva para parejas donde el placer es el camino hacia una conexión profunda
         </p>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-5 pt-6">
+        <div class="flex flex-col sm:flex-row gap-5 pt-6" data-animate="fade-up">
           <Button variant="primary" size="lg" href="/formulario-retiro">
             Solicitar Invitación al Retiro
           </Button>
@@ -64,7 +64,7 @@ import Button from '../ui/Button.astro';
       </div>
 
       <!-- Imagen principal (placeholder por ahora) -->
-      <div class="relative">
+      <div class="relative" data-animate="scale">
           <div class="relative rounded-4xl overflow-hidden shadow-2xl shadow-black/10 aspect-3/4">
             <video
               src="https://www.pexels.com/es-es/download/video/19205798/"
@@ -88,3 +88,8 @@ import Button from '../ui/Button.astro';
     </div>
   </div>
 </section>
+
+<script>
+  import { initAllMotions } from '../../utils/motionInit';
+  initAllMotions();
+</script>

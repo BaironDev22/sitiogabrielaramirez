@@ -3,8 +3,8 @@ backend:
   repo: BaironDev22/sitiogabrielaramirez
   branch: main
 
-
-local_backend: true     
+# Para desarrollo local (comentar en producción)
+local_backend: true
 
 # Configuración de medios
 media_folder: "public/images/blog"

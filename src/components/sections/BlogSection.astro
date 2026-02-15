@@ -14,7 +14,7 @@ const latestPosts = allBlogPosts
   <div class="max-w-7xl mx-auto">
     
     <!-- Encabezado -->
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-16" data-animate="fade-up">
       <div>
         <span class="inline-block text-xs font-medium tracking-widest uppercase text-coral-500 mb-3">
           EL BLOG
@@ -34,7 +34,7 @@ const latestPosts = allBlogPosts
 
     <!-- Grid de artículos -->
     {latestPosts.length > 0 ? (
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12" data-animate="stagger">
         {latestPosts.map((post) => (
           <BlogCard
             title={post.data.title}
@@ -52,3 +52,8 @@ const latestPosts = allBlogPosts
     )}
   </div>
 </section>
+
+<script>
+  import { initAllMotions } from '../../utils/motionInit';
+  initAllMotions();
+</script>
