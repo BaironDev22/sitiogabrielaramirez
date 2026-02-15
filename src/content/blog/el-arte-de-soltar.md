@@ -2,7 +2,7 @@
 title: El arte de soltar
 description: Crónicas de nuestro último retiro en Brasil y lo que aprendimos
   sobre la liberación emocional y el bienestar.
-pubDate: 2026-02-02T16:16:00.000-03:00
+pubDate: 2026-02-05T20:14:00.000-03:00
 category: LIFESTYLE
 image: https://images.pexels.com/photos/19611076/pexels-photo-19611076.jpeg
 author: Gabriela Ramírez
