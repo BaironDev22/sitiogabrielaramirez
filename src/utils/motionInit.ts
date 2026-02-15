@@ -1,6 +1,6 @@
 /**
  * Utilidades para animaciones Motion (inView)
- * Uso: Importar en componentes y llamar initMotion() en el script client-side
+ * Animaciones profesionales y suaves que se ejecutan cada vez que el elemento entra en viewport
  */
 
 import { inView, animate, stagger } from 'motion';
@@ -11,13 +11,17 @@ export interface MotionOptions {
   delay?: number;
 }
 
+// Easing profesional para transiciones suaves
+const smoothEasing = [0.25, 0.1, 0.25, 1]; // cubic-bezier
+
 /**
  * Inicializa animaciones fade up para elementos con data-animate
+ * Se ejecuta cada vez que el elemento entra en el viewport
  */
 export function initFadeUp(selector = '[data-animate="fade-up"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.6,
+    threshold = 0.35,
+    duration = 0.9,
     delay = 0,
   } = options;
 
@@ -29,9 +33,17 @@ export function initFadeUp(selector = '[data-animate="fade-up"]', options: Motio
       () => {
         animate(
           el as HTMLElement,
-          { opacity: [0, 1], y: [40, 0] } as any,
-          { duration, delay } as any
+          { opacity: [0, 1], y: [30, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
         );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], y: [0, -20] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -43,8 +55,8 @@ export function initFadeUp(selector = '[data-animate="fade-up"]', options: Motio
  */
 export function initFadeIn(selector = '[data-animate="fade-in"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.8,
+    threshold = 0.3,
+    duration = 1.0,
     delay = 0,
   } = options;
 
@@ -57,8 +69,16 @@ export function initFadeIn(selector = '[data-animate="fade-in"]', options: Motio
         animate(
           el as HTMLElement,
           { opacity: [0, 1] } as any,
-          { duration, delay } as any
+          { duration, delay, easing: smoothEasing } as any
         );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -71,8 +91,8 @@ export function initFadeIn(selector = '[data-animate="fade-in"]', options: Motio
  */
 export function initStagger(selector = '[data-animate="stagger"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.5,
+    threshold = 0.25,
+    duration = 0.7,
   } = options;
 
   const containers = document.querySelectorAll(selector);
@@ -85,12 +105,25 @@ export function initStagger(selector = '[data-animate="stagger"]', options: Moti
       () => {
         animate(
           children as HTMLElement[],
-          { opacity: [0, 1], y: [30, 0] } as any,
+          { opacity: [0, 1], y: [20, 0] } as any,
           {
             duration,
-            delay: stagger(0.1),
+            delay: stagger(0.08),
+            easing: smoothEasing,
           } as any
         );
+        
+        return () => {
+          animate(
+            children as HTMLElement[],
+            { opacity: [1, 0], y: [0, -15] } as any,
+            {
+              duration: 0.3,
+              delay: stagger(0.03),
+              easing: smoothEasing,
+            } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -102,8 +135,8 @@ export function initStagger(selector = '[data-animate="stagger"]', options: Moti
  */
 export function initSlideLeft(selector = '[data-animate="slide-left"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.7,
+    threshold = 0.35,
+    duration = 0.9,
     delay = 0,
   } = options;
 
@@ -115,9 +148,17 @@ export function initSlideLeft(selector = '[data-animate="slide-left"]', options:
       () => {
         animate(
           el as HTMLElement,
-          { opacity: [0, 1], x: [-60, 0] } as any,
-          { duration, delay } as any
+          { opacity: [0, 1], x: [-40, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
         );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], x: [0, -30] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -129,8 +170,8 @@ export function initSlideLeft(selector = '[data-animate="slide-left"]', options:
  */
 export function initSlideRight(selector = '[data-animate="slide-right"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.7,
+    threshold = 0.35,
+    duration = 0.9,
     delay = 0,
   } = options;
 
@@ -142,9 +183,17 @@ export function initSlideRight(selector = '[data-animate="slide-right"]', option
       () => {
         animate(
           el as HTMLElement,
-          { opacity: [0, 1], x: [60, 0] } as any,
-          { duration, delay } as any
+          { opacity: [0, 1], x: [40, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
         );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], x: [0, 30] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -156,8 +205,8 @@ export function initSlideRight(selector = '[data-animate="slide-right"]', option
  */
 export function initScale(selector = '[data-animate="scale"]', options: MotionOptions = {}) {
   const {
-    threshold = 0.2,
-    duration = 0.6,
+    threshold = 0.4,
+    duration = 0.8,
     delay = 0,
   } = options;
 
@@ -169,9 +218,122 @@ export function initScale(selector = '[data-animate="scale"]', options: MotionOp
       () => {
         animate(
           el as HTMLElement,
-          { opacity: [0, 1], scale: [0.8, 1] } as any,
-          { duration, delay } as any
+          { opacity: [0, 1], scale: [0.9, 1] } as any,
+          { duration, delay, easing: smoothEasing } as any
         );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], scale: [1, 0.95] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
+      },
+      { amount: threshold }
+    );
+  });
+}
+
+/**
+ * Inicializa animaciones fade down para elementos con data-animate
+ */
+export function initFadeDown(selector = '[data-animate="fade-down"]', options: MotionOptions = {}) {
+  const {
+    threshold = 0.35,
+    duration = 0.9,
+    delay = 0,
+  } = options;
+
+  const elements = document.querySelectorAll(selector);
+  
+  elements.forEach((el) => {
+    inView(
+      el,
+      () => {
+        animate(
+          el as HTMLElement,
+          { opacity: [0, 1], y: [-30, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
+        );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], y: [0, 20] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
+      },
+      { amount: threshold }
+    );
+  });
+}
+
+/**
+ * Inicializa animaciones slide up para elementos con data-animate
+ */
+export function initSlideUp(selector = '[data-animate="slide-up"]', options: MotionOptions = {}) {
+  const {
+    threshold = 0.35,
+    duration = 0.9,
+    delay = 0,
+  } = options;
+
+  const elements = document.querySelectorAll(selector);
+  
+  elements.forEach((el) => {
+    inView(
+      el,
+      () => {
+        animate(
+          el as HTMLElement,
+          { opacity: [0, 1], y: [40, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
+        );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], y: [0, -30] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
+      },
+      { amount: threshold }
+    );
+  });
+}
+
+/**
+ * Inicializa animaciones slide down para elementos con data-animate
+ */
+export function initSlideDown(selector = '[data-animate="slide-down"]', options: MotionOptions = {}) {
+  const {
+    threshold = 0.35,
+    duration = 0.9,
+    delay = 0,
+  } = options;
+
+  const elements = document.querySelectorAll(selector);
+  
+  elements.forEach((el) => {
+    inView(
+      el,
+      () => {
+        animate(
+          el as HTMLElement,
+          { opacity: [0, 1], y: [-40, 0] } as any,
+          { duration, delay, easing: smoothEasing } as any
+        );
+        
+        return () => {
+          animate(
+            el as HTMLElement,
+            { opacity: [1, 0], y: [0, 30] } as any,
+            { duration: 0.4, easing: smoothEasing } as any
+          );
+        };
       },
       { amount: threshold }
     );
@@ -184,8 +346,11 @@ export function initScale(selector = '[data-animate="scale"]', options: MotionOp
 export function initAllMotions() {
   initFadeUp();
   initFadeIn();
+  initFadeDown();
   initStagger();
   initSlideLeft();
   initSlideRight();
+  initSlideUp();
+  initSlideDown();
   initScale();
 }

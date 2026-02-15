@@ -24,9 +24,16 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<style>
-			/* Elementos con animaciones Motion empiezan ocultos */
+			/* Elementos con animaciones Motion empiezan ocultos para transición suave */
 			[data-animate] {
 				opacity: 0;
+				will-change: transform, opacity;
+			}
+			
+			/* Optimización de performance para animaciones */
+			* {
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
 			}
 		</style>
 	</head>
@@ -37,15 +44,18 @@ const {
 		</main>
 		<Footer />
 
-		<!-- Lenis Smooth Scroll -->
+		<!-- Lenis Smooth Scroll - Configuración optimizada -->
 		<script>
 			import Lenis from '@studio-freight/lenis';
 			
 			const lenis = new Lenis({
-				duration: 1.2,
+				duration: 1.0,
 				easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 				orientation: 'vertical',
 				smoothWheel: true,
+				wheelMultiplier: 1.0,
+				touchMultiplier: 2.0,
+				infinite: false,
 			});
 
 			function raf(time: number) {
@@ -54,6 +64,16 @@ const {
 			}
 
 			requestAnimationFrame(raf);
+
+			// Detener Lenis temporalmente durante redimensionamiento para evitar saltos
+			let resizeTimer: number;
+			window.addEventListener('resize', () => {
+				lenis.stop();
+				clearTimeout(resizeTimer);
+				resizeTimer = window.setTimeout(() => {
+					lenis.start();
+				}, 200);
+			});
 		</script>
 	</body>
 </html>
