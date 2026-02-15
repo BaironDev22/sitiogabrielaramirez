@@ -35,6 +35,29 @@ const {
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
 			}
+			
+			/* Scroll suave nativo - funciona con todos los métodos de scroll */
+			html {
+				scroll-behavior: smooth;
+			}
+			
+			/* Personalizar scrollbar para mejor estética */
+			::-webkit-scrollbar {
+				width: 10px;
+			}
+			
+			::-webkit-scrollbar-track {
+				background: #FFF2F0;
+			}
+			
+			::-webkit-scrollbar-thumb {
+				background: #D6664C;
+				border-radius: 5px;
+			}
+			
+			::-webkit-scrollbar-thumb:hover {
+				background: #C04A2F;
+			}
 		</style>
 	</head>
 	<body class="bg-main text-dark">
@@ -43,37 +66,5 @@ const {
 			<slot />
 		</main>
 		<Footer />
-
-		<!-- Lenis Smooth Scroll - Configuración optimizada -->
-		<script>
-			import Lenis from '@studio-freight/lenis';
-			
-			const lenis = new Lenis({
-				duration: 1.0,
-				easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-				orientation: 'vertical',
-				smoothWheel: true,
-				wheelMultiplier: 1.0,
-				touchMultiplier: 2.0,
-				infinite: false,
-			});
-
-			function raf(time: number) {
-				lenis.raf(time);
-				requestAnimationFrame(raf);
-			}
-
-			requestAnimationFrame(raf);
-
-			// Detener Lenis temporalmente durante redimensionamiento para evitar saltos
-			let resizeTimer: number;
-			window.addEventListener('resize', () => {
-				lenis.stop();
-				clearTimeout(resizeTimer);
-				resizeTimer = window.setTimeout(() => {
-					lenis.start();
-				}, 200);
-			});
-		</script>
 	</body>
 </html>

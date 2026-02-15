@@ -12,7 +12,7 @@ Se ha actualizado completamente el sistema de animaciones del sitio para ofrecer
 
 2. **Transiciones Suaves**: Se implementó un easing profesional (cubic-bezier) que proporciona movimientos naturales y elegantes.
 
-3. **Scroll Optimizado**: La configuración de Lenis se ajustó para eliminar saltos y proporcionar una experiencia de scroll consistente y agradable.
+3. **Scroll Natural**: Se eliminó Lenis y se implementó scroll nativo del navegador que funciona de manera consistente con todos los métodos de interacción (rueda, barra, teclado, touch).
 
 4. **Performance Optimizada**: Se añadieron optimizaciones de renderizado para animaciones más fluidas.
 
@@ -70,13 +70,16 @@ Los elementos ahora requieren estar más visibles en pantalla antes de animarse,
 - **Entrada**: `cubic-bezier(0.25, 0.1, 0.25, 1)` - Suave y profesional
 - **Salida**: `cubic-bezier(0.25, 0.1, 0.25, 1)` - 0.4s (más rápida)
 
-## Scroll Suave (Lenis)
+## Scroll Suave (Nativo)
 
-La configuración de Lenis ahora incluye:
-- Duración optimizada a 1.0s (antes 1.2s)
-- Multipliers balanceados para wheel y touch
-- Pausado automático durante resize para evitar saltos
-- Easing consistente
+El sitio ahora utiliza el scroll suave nativo del navegador (`scroll-behavior: smooth`) que ofrece:
+- ✅ Funciona con todos los métodos de scroll (rueda, barra, teclado, touch)
+- ✅ Experiencia consistente y predecible
+- ✅ Sin comportamientos agresivos o saltos
+- ✅ Compatible con todas las funcionalidades del navegador
+- ✅ Mejor performance (no requiere JavaScript)
+
+Además, se personaliza la scrollbar para una mejor estética que combina con el diseño del sitio.
 
 ## Cambios Realizados
 
@@ -87,8 +90,9 @@ La configuración de Lenis ahora incluye:
 - ✅ Nuevas animaciones: fade-down, slide-up, slide-down
 
 ### Archivo `Layout.astro`
-- ✅ Configuración optimizada de Lenis
-- ✅ Manejo de resize para evitar saltos
+- ✅ Eliminado Lenis en favor de scroll nativo
+- ✅ Scroll suave con CSS `scroll-behavior: smooth`
+- ✅ Scrollbar personalizada con los colores del sitio
 - ✅ Estilos de performance mejorados
 - ✅ will-change para optimización GPU
 
