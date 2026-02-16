@@ -126,13 +126,17 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  function initMobileMenu() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenuClose = document.getElementById('mobile-menu-close');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
+    let mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
     const navbar = document.getElementById('navbar');
+
+    if (!mobileMenuButton || !mobileMenuClose || !mobileMenu || !mobileMenuOverlay) {
+      return; // Exit if elements don't exist
+    }
 
     // Function to open mobile menu
     function openMobileMenu() {
@@ -150,8 +154,9 @@
         lines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
       }
       
-      // Animate menu items
-      mobileNavLinks.forEach((link, index) => {
+      // Animate menu items - Re-query to get current elements
+      const currentNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
+      currentNavLinks.forEach((link, index) => {
         setTimeout(() => {
           link.style.opacity = '1';
           link.style.transform = 'translateX(0)';
@@ -176,39 +181,59 @@
       }
       
       // Reset menu items animation
-      mobileNavLinks.forEach((link: HTMLElement) => {
+      const currentNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
+      currentNavLinks.forEach((link: HTMLElement) => {
         link.style.opacity = '0';
         link.style.transform = 'translateX(20px)';
       });
     }
 
-    // Event listeners
-    mobileMenuButton?.addEventListener('click', openMobileMenu);
-    mobileMenuClose?.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
+    // Clear any existing handlers by removing and re-adding click events
+    // We'll use a data attribute to track if already initialized
+    if (!mobileMenuButton.hasAttribute('data-menu-initialized')) {
+      mobileMenuButton.addEventListener('click', openMobileMenu);
+      mobileMenuButton.setAttribute('data-menu-initialized', 'true');
+    }
+    
+    if (!mobileMenuClose.hasAttribute('data-menu-initialized')) {
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+      mobileMenuClose.setAttribute('data-menu-initialized', 'true');
+    }
+    
+    if (!mobileMenuOverlay.hasAttribute('data-menu-initialized')) {
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+      mobileMenuOverlay.setAttribute('data-menu-initialized', 'true');
+    }
 
-    // Close menu when clicking on nav links
+    // Add listeners to nav links
+    mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
     mobileNavLinks.forEach((link: HTMLElement) => {
-      link.addEventListener('click', () => {
-        setTimeout(closeMobileMenu, 300);
-      });
-    });
-
-    // Close menu when pressing Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeMobileMenu();
+      if (!link.hasAttribute('data-menu-initialized')) {
+        link.addEventListener('click', () => {
+          setTimeout(closeMobileMenu, 300);
+        });
+        link.setAttribute('data-menu-initialized', 'true');
       }
-    });
-
-    // Initialize mobile nav links animation state
-    mobileNavLinks.forEach((link: HTMLElement) => {
+      
+      // Ensure proper styling
       link.style.opacity = '0';
       link.style.transform = 'translateX(20px)';
       link.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
     });
 
-    // Navbar scroll behavior - hide on scroll down, show on scroll up
+    // Close menu when pressing Escape key (only add once)
+    if (!document.body.hasAttribute('data-escape-initialized')) {
+      document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          closeMobileMenu();
+        }
+      });
+      document.body.setAttribute('data-escape-initialized', 'true');
+    }
+  }
+
+  function initNavbarScroll() {
+    const navbar = document.getElementById('navbar');
     let lastScrollY = window.scrollY;
     let ticking = false;
 
@@ -233,6 +258,17 @@
         ticking = true;
       }
     });
+  }
+
+  // Initialize on first load
+  document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+    initNavbarScroll();
+  });
+
+  // Reinitialize after page transitions
+  document.addEventListener('astro:page-load', () => {
+    initMobileMenu();
   });
 </script>
 

@@ -145,13 +145,11 @@ const {
 			// Agregar clase durante la transición
 			document.addEventListener('astro:before-preparation', () => {
 				document.documentElement.classList.add('is-transitioning');
-				console.log('🚀 Transición iniciada');
 			});
 
 			// Remover clase después de la transición
 			document.addEventListener('astro:after-swap', () => {
 				document.documentElement.classList.remove('is-transitioning');
-				console.log('✅ Transición completada');
 			});
 
 			// Reiniciar animaciones de Motion después de cada transición de página
@@ -160,7 +158,6 @@ const {
 				if (typeof window !== 'undefined' && 'initAllMotions' in window) {
 					(window as any).initAllMotions();
 				}
-				console.log('📄 Página cargada');
 			});
 		</script>
 	</body>
