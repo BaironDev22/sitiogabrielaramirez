@@ -354,3 +354,8 @@ export function initAllMotions() {
   initSlideDown();
   initScale();
 }
+
+// Hacer disponible globalmente para las transiciones de página
+if (typeof window !== 'undefined') {
+  (window as any).initAllMotions = initAllMotions;
+}

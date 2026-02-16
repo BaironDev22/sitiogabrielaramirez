@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import Navbar from '../components/ui/Navbar.astro';
 import Footer from '../components/ui/Footer.astro';
@@ -23,6 +24,7 @@ const {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 		<style>
 			/* Elementos con animaciones Motion empiezan ocultos para transición suave */
 			[data-animate] {
@@ -58,6 +60,78 @@ const {
 			::-webkit-scrollbar-thumb:hover {
 				background: #C04A2F;
 			}
+
+			/* Transiciones de página minimalistas */
+			@view-transition {
+				navigation: auto;
+			}
+
+			/* Animación de salida - fade out con ligero desplazamiento */
+			::view-transition-old(root) {
+				animation: fadeOutSlide 0.5s cubic-bezier(0.4, 0, 0.6, 1);
+			}
+
+			/* Animación de entrada - fade in con ligero desplazamiento */
+			::view-transition-new(root) {
+				animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			/* Hacer la transición más visible durante el desarrollo */
+			::view-transition-group(root) {
+				animation-duration: 0.5s;
+			}
+
+			@keyframes fadeOutSlide {
+				from {
+					opacity: 1;
+					transform: translateY(0) scale(1);
+				}
+				to {
+					opacity: 0;
+					transform: translateY(-20px) scale(0.98);
+				}
+			}
+
+			@keyframes fadeInSlide {
+				from {
+					opacity: 0;
+					transform: translateY(20px) scale(0.98);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0) scale(1);
+				}
+			}
+
+			/* Fallback para navegadores sin soporte */
+			@media (prefers-reduced-motion: reduce) {
+				::view-transition-old(root),
+				::view-transition-new(root) {
+					animation: none !important;
+				}
+			}
+
+			/* Indicador de carga durante la transición */
+			html.is-transitioning::before {
+				content: '';
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 3px;
+				background: linear-gradient(90deg, #D6664C, #E8A598);
+				z-index: 9999;
+				animation: loadingBar 0.5s ease-in-out;
+			}
+
+			@keyframes loadingBar {
+				from {
+					transform: translateX(-100%);
+				}
+				to {
+					transform: translateX(100%);
+				}
+			}
 		</style>
 	</head>
 	<body class="bg-main text-dark">
@@ -66,5 +140,28 @@ const {
 			<slot />
 		</main>
 		<Footer />
+		
+		<script>
+			// Agregar clase durante la transición
+			document.addEventListener('astro:before-preparation', () => {
+				document.documentElement.classList.add('is-transitioning');
+				console.log('🚀 Transición iniciada');
+			});
+
+			// Remover clase después de la transición
+			document.addEventListener('astro:after-swap', () => {
+				document.documentElement.classList.remove('is-transitioning');
+				console.log('✅ Transición completada');
+			});
+
+			// Reiniciar animaciones de Motion después de cada transición de página
+			document.addEventListener('astro:page-load', () => {
+				// Reinicializar Motion si está disponible
+				if (typeof window !== 'undefined' && 'initAllMotions' in window) {
+					(window as any).initAllMotions();
+				}
+				console.log('📄 Página cargada');
+			});
+		</script>
 	</body>
 </html>
