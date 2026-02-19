@@ -1,10 +1,9 @@
 backend:
-  name: github
-  repo: BaironDev22/sitiogabrielaramirez
+  name: git-gateway
   branch: main
 
-# Para desarrollo local (comentar en producción)
-local_backend: true
+# Para desarrollo local (descomentar para usar)
+# local_backend: true
 
 # Configuración de medios
 media_folder: "public/images/blog"
