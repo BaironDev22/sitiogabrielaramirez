@@ -1,4 +1,4 @@
----
+	---
 import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import Navbar from '../components/ui/Navbar.astro';
@@ -133,6 +133,9 @@ const {
 				}
 			}
 		</style>
+		
+		<!-- Netlify Identity Widget -->
+		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 	</head>
 	<body class="bg-main text-dark">
 		<Navbar />
@@ -159,6 +162,19 @@ const {
 					(window as any).initAllMotions();
 				}
 			});
+		</script>
+		
+		<script is:inline>
+			// Manejar redirección después del login con Netlify Identity
+			if (window.netlifyIdentity) {
+				window.netlifyIdentity.on("init", user => {
+					if (!user) {
+						window.netlifyIdentity.on("login", () => {
+							document.location.href = "/admin/";
+						});
+					}
+				});
+			}
 		</script>
 	</body>
 </html>
