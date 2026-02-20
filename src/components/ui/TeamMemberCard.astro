@@ -22,6 +22,7 @@ const { name, role, description, image, tags, badge, featured = false, layout = 
 				src={image} 
 				alt={name}
 				class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+				style="object-position: center 35%;"
 			/>
 			<!-- Badge superior izquierdo -->
 			{badge && (
@@ -29,6 +30,8 @@ const { name, role, description, image, tags, badge, featured = false, layout = 
 					<span class="text-[10px] font-bold tracking-wider text-coral-600">{badge}</span>
 				</div>
 			)}
+			<!-- Gradient overlay para ocultar marca de agua -->
+			<div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
 		</div>
 
 		<!-- Contenido -->
@@ -65,7 +68,10 @@ const { name, role, description, image, tags, badge, featured = false, layout = 
 					src={image} 
 					alt={name}
 					class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+					style="object-position: center 35%;"
 				/>
+				<!-- Gradient overlay para ocultar marca de agua -->
+				<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
 			</div>
 
 			<!-- Contenido -->
