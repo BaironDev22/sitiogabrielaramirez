@@ -10,7 +10,7 @@ import Button from '../components/ui/Button.astro';
 		<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
 			<div class="absolute inset-0">
 				<img 
-					src="https://images.pexels.com/photos/19611076/pexels-photo-19611076.jpeg" 
+					src="/images/marcelo-santos--TmGql-RBAw-unsplash.jpg" 
 					alt="Paisaje brasileño con colinas verdes al amanecer" 
 					class="w-full h-full object-cover"
 				/>
@@ -18,18 +18,18 @@ import Button from '../components/ui/Button.astro';
 			</div>
 			
 			<div class="relative z-10 text-center text-white space-y-8 px-6">
-				<p class="text-xs font-semibold uppercase tracking-widest text-white/90">
+				<p class="text-xs font-semibold uppercase tracking-widest text-white/90" data-animate="fade-in">
 					Retiro Exclusivo · Brasil
 				</p>
-				<h1 class="text-5xl md:text-7xl font-serif font-normal leading-tight">
+				<h1 class="text-5xl md:text-7xl font-serif font-normal leading-tight" data-animate="fade-up">
 					Inmersión en el<br/>
-					<span class="font-italianno text-6xl md:text-8xl italic text-coral-400">Paraíso</span>
+					<span class="font-italianno text-7xl md:text-9xl font-normal italic text-coral-400">Paraíso</span>
 				</h1>
-				<p class="text-lg font-light max-w-2xl mx-auto leading-relaxed">
+				<p class="text-lg font-light max-w-2xl mx-auto leading-relaxed" data-animate="fade-up">
 					5 días de yoga al amanecer, rituales tántricos y conexión profunda.<br/>
 					Solo 10 parejas exclusivas.
 				</p>
-				<Button variant="primary" size="lg" href="/formulario-retiro" class="mt-8">
+				<Button variant="primary" size="lg" href="/formulario-retiro" class="mt-8" data-animate="fade-up">
 					Solicitar Invitación
 				</Button>
 			</div>
@@ -47,14 +47,14 @@ import Button from '../components/ui/Button.astro';
 		<!-- La Experiencia Section -->
 		<section class="py-24 bg-gray-50">
 			<div class="max-w-6xl mx-auto px-6">
-				<div class="text-center mb-16">
+				<div class="text-center mb-16" data-animate="fade-up">
 					<h2 class="text-4xl md:text-5xl font-serif text-dark mb-6">La Experiencia</h2>
 					<p class="text-lg text-dark/70 font-light max-w-2xl mx-auto">
 						Un viaje transformador para conectar con tu esencia más profunda y la intimidad verdadera.
 					</p>
 				</div>
 				
-				<div class="grid md:grid-cols-3 gap-8">
+				<div class="grid md:grid-cols-3 gap-8" data-animate="stagger">
 					<!-- Yoga & Mindfulness -->
 					<div class="bg-white rounded-4xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300">
 						<div class="h-64 relative overflow-hidden">
@@ -93,7 +93,7 @@ import Button from '../components/ui/Button.astro';
 					<div class="bg-white rounded-4xl overflow-hidden shadow-lg group hover:shadow-xl transition-shadow duration-300">
 						<div class="h-64 relative overflow-hidden">
 							<img 
-								src="https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg" 
+								src="images/pexels-beatriz-beltrame-1785203-3390729.jpg" 
 								alt="Naturaleza virgen" 
 								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 							/>
@@ -113,7 +113,7 @@ import Button from '../components/ui/Button.astro';
 		<section class="py-24 bg-white">
 			<div class="max-w-5xl mx-auto px-6">
 				<div class="grid lg:grid-cols-2 gap-16 items-center">
-					<div class="space-y-8">
+					<div class="space-y-8" data-animate="slide-right">
 						<h2 class="text-4xl md:text-5xl font-serif text-dark leading-tight">
 							Un encuentro íntimo en las costas vírgenes de 
 							<span class="italic text-coral-500">Brasil</span>.
@@ -140,7 +140,7 @@ import Button from '../components/ui/Button.astro';
 						</div>
 					</div>
 					
-					<div class="relative">
+					<div class="relative" data-animate="scale">
 						<div class="aspect-4/5 rounded-4xl overflow-hidden shadow-2xl">
 							<img 
 								src="https://images.pexels.com/photos/19611076/pexels-photo-19611076.jpeg" 
@@ -158,13 +158,13 @@ import Button from '../components/ui/Button.astro';
 		<section class="py-24 bg-gray-900 text-white relative overflow-hidden">
 			<div class="absolute inset-0 opacity-20">
 				<img 
-					src="https://images.pexels.com/photos/19611076/pexels-photo-19611076.jpeg" 
+					src="/images/marcelo-cidrack-vQ1XqbSdOk4-unsplash.jpg" 
 					alt="Atardecer en Brasil" 
 					class="w-full h-full object-cover"
 				/>
 			</div>
 			
-			<div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8">
+			<div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8" data-animate="fade-up">
 				<div class="w-16 h-16 mx-auto bg-coral-500/20 rounded-full flex items-center justify-center mb-6">
 					<svg class="w-8 h-8 text-coral-400" fill="currentColor" viewBox="0 0 20 20">
 						<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -192,3 +192,8 @@ import Button from '../components/ui/Button.astro';
 		</section>
 	</div>
 </Layout>
+
+<script>
+	import { initAllMotions } from '../utils/motionInit';
+	initAllMotions();
+</script>
