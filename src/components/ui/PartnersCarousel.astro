@@ -4,12 +4,15 @@ export interface Partner {
 	logo: string;
 }
 
-const partners: Partner[] = [
+const partnersBase: Partner[] = [
 	{ name: "Hotel Pipa Atlantico", logo: "/images/partners/apart-pipa.svg" },
 	{ name: "Brany style Beleza consciente", logo: "/images/partners/PHOTO-2026-02-25-11-05-47 (1).jpg" },
 	{ name: "Moira Sexshop", logo: "/images/partners/moira-sexshop.svg" },
 	{ name: "Trajes de baño", logo: "/images/partners/poseidon.svg" },
 ];
+
+// Duplicar para loop infinito sin JavaScript
+const partners = [...partnersBase, ...partnersBase];
 ---
 
 <div class="relative py-16">
@@ -19,18 +22,19 @@ const partners: Partner[] = [
 		</p>
 	</div>
 
-	<!-- Carrusel Embla -->
-	<div class="max-w-300 mx-auto px-6">
-		<div class="embla" data-partners-carousel>
-			<div class="embla__container">
-				{partners.map((partner) => (
-					<div class="embla__slide">
+	<!-- Carrusel CSS -->
+	<div class="max-w-4xl mx-auto px-6">
+		<div class="carousel-wrapper">
+			<div class="carousel-track">
+				{partners.map((partner, index) => (
+					<div class="carousel-slide" data-index={index}>
 						<div class="flex justify-center">
 							<div class="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center p-4 md:p-6 rounded-2xl border border-secondary bg-white hover:border-coral-300 transition-all duration-300 hover:shadow-lg group">
 								<img 
 									src={partner.logo} 
 									alt={partner.name}
 									class="w-full h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+									loading="lazy"
 									onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
 								/>
 								<!-- Fallback si la imagen no existe -->
@@ -49,71 +53,48 @@ const partners: Partner[] = [
 	</div>
 </div>
 
-<script>
-	import EmblaCarousel from 'embla-carousel';
-	import type { EmblaOptionsType } from 'embla-carousel';
-
-	const options: EmblaOptionsType = {
-		loop: true,
-		align: 'center',
-		slidesToScroll: 1,
-		skipSnaps: false,
-		dragFree: true,
-	};
-
-	const emblaNode = document.querySelector('[data-partners-carousel]') as HTMLElement;
-	
-	if (emblaNode) {
-		const embla = EmblaCarousel(emblaNode, options);
-		
-		// Auto-play suave
-		let autoplayInterval: ReturnType<typeof setInterval>;
-		
-		const startAutoplay = () => {
-			autoplayInterval = setInterval(() => {
-				embla.scrollNext();
-			}, 3000);
-		};
-		
-		const stopAutoplay = () => {
-			clearInterval(autoplayInterval);
-		};
-		
-		// Iniciar autoplay
-		startAutoplay();
-		
-		// Pausar en hover
-		emblaNode.addEventListener('mouseenter', stopAutoplay);
-		emblaNode.addEventListener('mouseleave', startAutoplay);
-		
-		// Limpiar al salir
-		embla.on('destroy', stopAutoplay);
-	}
-</script>
-
 <style>
-	.embla {
+	.carousel-wrapper {
+		position: relative;
 		overflow: hidden;
 	}
 	
-	.embla__container {
+	.carousel-track {
 		display: flex;
 		gap: 2rem;
+		animation: scroll-carousel 40s linear infinite;
 	}
 	
-	.embla__slide {
+	.carousel-track:hover {
+		animation-play-state: paused;
+	}
+	
+	@keyframes scroll-carousel {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+	
+	.carousel-slide {
 		flex: 0 0 auto;
-		min-width: 0;
+		min-width: 140px;
 	}
 	
 	@media (min-width: 768px) {
-		.embla__container {
+		.carousel-track {
 			gap: 3rem;
+		}
+		
+		.carousel-slide {
+			min-width: 160px;
 		}
 	}
 	
 	@media (min-width: 1024px) {
-		.embla__container {
+		.carousel-track {
 			gap: 4rem;
 		}
 	}
