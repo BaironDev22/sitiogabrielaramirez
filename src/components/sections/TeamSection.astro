@@ -1,12 +1,12 @@
 ---
 import TeamMemberCard from '../ui/TeamMemberCard.astro';
-import PartnersCarousel from '../ui/PartnersCarousel.astro';
+// import PartnersCarousel from '../ui/PartnersCarousel.astro';
 
 const teamMembers = [
 	{
 		name: "Gabriela Ramírez",
 		role: "FUNDADORA & SEXÓLOGA CLÍNICA",
-		description: "Especialista en trauma y reconexión somática con más de 15 años de experiencia clínica. Su enfoque único integra la ciencia sexológica con prácticas ancestrales para liberar el potencial del cuerpo.",
+		description: "Enfermera, sexóloga clínica, life and health coach y creadora del estilo \"zensual yoga\". Me dedico a transformar la forma en que habitamos nuestra intimidad. Combino la ciencia de la salud con el poder de la inteligencia sexual y el yoga para guiarte hacia un bienestar integral. Mi propósito es brindarte un espacio seguro y sin tabúes donde puedas reconectar con tu energía vital, liderar tu propio placer y vivir con absoluta confianza.",
 		image: "/images/02983dff-08ec-4954-8f78-f11ab504ea0f.jpeg",
 		tags: ["Trauma", "Somática", "Tantra"],
 		badge: "FUNDADORA",
@@ -23,8 +23,9 @@ const teamMembers = [
 		name: "Carolina Ramírez",
 		role: "FISIOTERAPEUTA / KINESIÓLOGA",
 		description: "Facilitadora de tantra y especialista en masaje sensorial para reconexión de parejas. Carolina aporta una mirada profunda sobre el cuerpo, el tacto consciente y el masaje como herramienta terapéutica para restaurar la confianza, la comunicación no verbal y la presencia.",
-		image: "https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=800",
+		image: "/images/WhatsApp Image 2026-03-05 at 11.30.31.jpeg",
 		tags: ["Tantra", "Masaje", "Reconexión"],
+		imagePosition: "center top",
 	},
 ];
 ---
@@ -76,20 +77,21 @@ const teamMembers = [
 					description={teamMembers[2].description}
 					image={teamMembers[2].image}
 					tags={teamMembers[2].tags}
+					imagePosition={teamMembers[2].imagePosition}
 					layout="horizontal"
 				/>
 			</div>
 		</div>
 
-		<!-- Separador decorativo -->
-		<div class="flex justify-center py-8 opacity-50">
+		<!-- Separador decorativo (comentado temporalmente) -->
+		<!-- <div class="flex justify-center py-8 opacity-50">
 			<svg class="w-10 h-10 text-coral-400" fill="currentColor" viewBox="0 0 20 20">
 				<path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
 			</svg>
-		</div>
+		</div> -->
 
-		<!-- Carrusel de aliados -->
-		<PartnersCarousel />
+		<!-- Carrusel de aliados (comentado temporalmente hasta tener los logos) -->
+		<!-- <PartnersCarousel /> -->
 	</div>
 </section>
 

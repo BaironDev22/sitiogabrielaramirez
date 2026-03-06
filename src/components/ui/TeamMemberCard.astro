@@ -8,21 +8,22 @@ export interface Props {
 	badge?: string;
 	featured?: boolean;
 	layout?: 'vertical' | 'horizontal';
+	imagePosition?: string;
 }
 
-const { name, role, description, image, tags, badge, featured = false, layout = 'vertical' } = Astro.props;
+const { name, role, description, image, tags, badge, featured = false, layout = 'vertical', imagePosition = 'center 35%' } = Astro.props;
 ---
 
 {layout === 'vertical' ? (
 	<!-- Layout Vertical: Foto arriba, contenido abajo -->
-	<div class={`relative bg-white rounded-4xl overflow-hidden border border-secondary hover:border-coral-300 transition-all duration-300 group ${featured ? 'shadow-2xl shadow-coral-100' : 'shadow-lg hover:shadow-xl'}`}>
+	<div class={`relative bg-white rounded-4xl overflow-hidden border border-secondary md:hover:border-coral-300 transition-all duration-300 group ${featured ? 'shadow-2xl shadow-coral-100' : 'shadow-lg md:hover:shadow-xl'}`}>
 		<!-- Imagen -->
 		<div class="relative aspect-3/4 overflow-hidden bg-linear-to-br from-gray-100 to-gray-200">
 			<img 
 				src={image} 
 				alt={name}
-				class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-				style="object-position: center 35%;"
+				class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-500 md:group-hover:scale-105"
+				style={`object-position: ${imagePosition};`}
 			/>
 			<!-- Badge superior izquierdo -->
 			{badge && (
@@ -60,15 +61,15 @@ const { name, role, description, image, tags, badge, featured = false, layout = 
 	</div>
 ) : (
 	<!-- Layout Horizontal: Foto a la izquierda, contenido a la derecha -->
-	<div class="relative bg-white rounded-4xl overflow-hidden border border-secondary hover:border-coral-300 transition-all duration-300 group shadow-lg hover:shadow-xl">
+	<div class="relative bg-white rounded-4xl overflow-hidden border border-secondary md:hover:border-coral-300 transition-all duration-300 group shadow-lg md:hover:shadow-xl">
 		<div class="flex flex-col md:flex-row md:h-full">
 			<!-- Imagen -->
 			<div class="relative md:w-2/5 aspect-4/3 md:aspect-auto md:min-h-full overflow-hidden bg-linear-to-br from-gray-100 to-gray-200">
 				<img 
 					src={image} 
 					alt={name}
-					class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-					style="object-position: center 35%;"
+					class="w-full h-full object-cover md:grayscale md:group-hover:grayscale-0 transition-all duration-500 md:group-hover:scale-105"
+					style={`object-position: ${imagePosition};`}
 				/>
 				<!-- Gradient overlay para ocultar marca de agua -->
 				<div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
