@@ -6,6 +6,9 @@ backend:
 # local_backend: true
 
 # Configuración de medios
+# IMPORTANTE: Las imágenes se guardan en el repositorio de GitHub
+# Límite GitHub: 100MB por archivo (recomendado mantener bajo 10MB para mejor rendimiento web)
+# Recomendaciones: Tamaño 1920x1080px o 1600x900px, formato JPG (mejor compresión)
 media_folder: "public/images/blog"
 public_folder: "/images/blog"
 
