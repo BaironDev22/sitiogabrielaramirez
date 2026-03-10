@@ -1,10 +1,11 @@
 ---
-title: "Desmontando mitos del deseo"
-description: "¿Es cierto que el deseo debe ser espontáneo? Exploramos la diferencia entre el deseo proactivo y reactivo..."
+title: Desmontando mitos del deseo
+description: ¿Es cierto que el deseo debe ser espontáneo? Exploramos la
+  diferencia entre el deseo proactivo y reactivo...
 pubDate: 2025-01-15
-category: "EDUCACIÓN"
-image: "https://images.pexels.com/photos/8934026/pexels-photo-8934026.jpeg"
-author: "Gabriela Ramírez"
+category: EDUCACIÓN
+image: /images/blog/chidy-young-wl6ygvtf4bk-unsplash.jpg
+author: Gabriela Ramírez
 ---
 
 ## El mito del deseo espontáneo
