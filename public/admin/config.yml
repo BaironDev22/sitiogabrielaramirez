@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: BaironDev22/sitiogabrielaramirez
   branch: main
 
 # Para desarrollo local (descomentar para usar)
