@@ -1,10 +1,11 @@
 ---
-title: "Presencia en la intimidad"
-description: "Cómo la respiración consciente puede transformar tu experiencia en la conexión con la pareja el día a día."
+title: Presencia en la intimidad
+description: Cómo la respiración consciente puede transformar tu experiencia en
+  la conexión con la pareja el día a día.
 pubDate: 2025-01-20
-category: "MINDFULNESS"
-image: "https://images.pexels.com/photos/8134215/pexels-photo-8134215.jpeg"
-author: "Gabriela Ramírez"
+category: MINDFULNESS
+image: /images/blog/chidy-young-wl6ygvtf4bk-unsplash.jpg
+author: Gabriela Ramírez
 ---
 
 ## El poder del momento presente
