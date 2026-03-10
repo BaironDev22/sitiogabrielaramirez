@@ -80,54 +80,93 @@ const categories = ['EDUCACIÓN', 'MINDFULNESS', 'LIFESTYLE', 'PRÓXIMAMENTE'];
   </div>
 
   <script is:inline>
-    // Funcionalidad de filtrado de blog
-    function initBlogFilters() {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const blogPosts = document.querySelectorAll('.blog-post-item');
+    // Funcionalidad de filtrado de blog con mejor manejo de eventos
+    (function() {
+      let isInitialized = false;
 
-      if (!filterButtons.length || !blogPosts.length) {
-        console.warn('No se encontraron botones de filtro o posts');
-        return;
+      function handleFilterClick(e) {
+        // Buscar el botón clickeado (puede ser el botón o un elemento hijo)
+        const button = e.target.closest('.filter-btn');
+        if (!button) return;
+
+        const filter = button.getAttribute('data-filter');
+        
+        // Actualizar estilos de botones activos
+        const allButtons = document.querySelectorAll('.filter-btn');
+        allButtons.forEach(btn => {
+          if (btn === button) {
+            btn.classList.remove('bg-white', 'border-gray-200', 'text-dark/70');
+            btn.classList.add('bg-coral-500', 'text-white', 'border-coral-500');
+          } else {
+            btn.classList.remove('bg-coral-500', 'text-white', 'border-coral-500');
+            btn.classList.add('bg-white', 'border-gray-200', 'text-dark/70');
+          }
+        });
+
+        // Filtrar posts
+        const blogPosts = document.querySelectorAll('.blog-post-item');
+        blogPosts.forEach(post => {
+          const category = post.getAttribute('data-category');
+          
+          if (filter === 'all' || category === filter) {
+            post.style.display = 'block';
+            // Animación de entrada
+            post.style.animation = 'fadeIn 0.5s ease-in';
+          } else {
+            post.style.display = 'none';
+          }
+        });
       }
 
-      filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const filter = button.getAttribute('data-filter');
-          console.log('Filtro seleccionado:', filter);
+      function initBlogFilters() {
+        // Evitar inicializar múltiples veces
+        if (isInitialized) {
+          return;
+        }
 
-          // Actualizar estilos de botones activos
-          filterButtons.forEach(btn => {
-            if (btn === button) {
-              btn.classList.remove('bg-white', 'border-gray-200', 'text-dark/70');
-              btn.classList.add('bg-coral-500', 'text-white', 'border-coral-500');
-            } else {
-              btn.classList.remove('bg-coral-500', 'text-white', 'border-coral-500');
-              btn.classList.add('bg-white', 'border-gray-200', 'text-dark/70');
-            }
-          });
+        const filterContainer = document.querySelector('.flex.flex-wrap.gap-3');
+        const blogPosts = document.querySelectorAll('.blog-post-item');
 
-          // Filtrar posts
-          blogPosts.forEach(post => {
-            const category = post.getAttribute('data-category');
-            
-            if (filter === 'all' || category === filter) {
-              post.style.display = 'block';
-              // Animación de entrada
-              post.style.animation = 'fadeIn 0.5s ease-in';
-            } else {
-              post.style.display = 'none';
-            }
-          });
-        });
+        if (!filterContainer || !blogPosts.length) {
+          console.warn('No se encontraron elementos del blog');
+          return;
+        }
+
+        // Usar event delegation en el contenedor de botones
+        filterContainer.removeEventListener('click', handleFilterClick);
+        filterContainer.addEventListener('click', handleFilterClick);
+
+        isInitialized = true;
+        console.log('Filtros del blog inicializados');
+      }
+
+      // Reinicializar cuando sea necesario
+      function reinitIfNeeded() {
+        isInitialized = false;
+        initBlogFilters();
+      }
+
+      // Ejecutar cuando el DOM esté listo
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBlogFilters);
+      } else {
+        initBlogFilters();
+      }
+
+      // Reinicializar si el usuario vuelve a la página
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          setTimeout(reinitIfNeeded, 100);
+        }
       });
-    }
 
-    // Ejecutar cuando el DOM esté listo
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initBlogFilters);
-    } else {
-      initBlogFilters();
-    }
+      // Soporte para navegación con back/forward
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+          reinitIfNeeded();
+        }
+      });
+    })();
   </script>
 
   <style>
