@@ -19,14 +19,6 @@ const teamMembers = [
 		image: "/images/team/PHOTO-2026-02-25-11-05-47.jpg",
 		tags: ["Mindfulness", "Respiración", "Somática"],
 	},
-	{
-		name: "Carolina Ramírez",
-		role: "FISIOTERAPEUTA / KINESIÓLOGA",
-		description: "Facilitadora de tantra y especialista en masaje sensorial para reconexión de parejas. Carolina aporta una mirada profunda sobre el cuerpo, el tacto consciente y el masaje como herramienta terapéutica para restaurar la confianza, la comunicación no verbal y la presencia.",
-		image: "/images/WhatsApp Image 2026-03-05 at 11.30.31.jpeg",
-		tags: ["Tantra", "Masaje", "Reconexión"],
-		imagePosition: "center top",
-	},
 ];
 ---
 
@@ -42,7 +34,7 @@ const teamMembers = [
 			</p>
 		</div>
 
-		<!-- Grid de equipo: 2 columnas - Gabriela a la izquierda, colaboradores a la derecha -->
+		<!-- Grid de equipo: 2 columnas - Gabriela a la izquierda, colaboradora a la derecha -->
 		<div class="grid lg:grid-cols-2 gap-6 mb-16" data-animate="stagger">
 			<!-- Gabriela - Mitad izquierda completa (layout vertical) -->
 			<div class="flex">
@@ -58,26 +50,15 @@ const teamMembers = [
 				/>
 			</div>
 
-			<!-- Colaboradores - Mitad derecha: Veronica y Carolina apiladas (layout horizontal) -->
+			<!-- Colaboradora - Mitad derecha: Veronica (layout horizontal) -->
 			<div class="grid gap-5">
-				<!-- Carolina -->
+				<!-- Veronica -->
 				<TeamMemberCard 
 					name={teamMembers[1].name}
 					role={teamMembers[1].role}
 					description={teamMembers[1].description}
 					image={teamMembers[1].image}
 					tags={teamMembers[1].tags}
-					layout="horizontal"
-				/>
-
-				<!-- Carolina -->
-				<TeamMemberCard 
-					name={teamMembers[2].name}
-					role={teamMembers[2].role}
-					description={teamMembers[2].description}
-					image={teamMembers[2].image}
-					tags={teamMembers[2].tags}
-					imagePosition={teamMembers[2].imagePosition}
 					layout="horizontal"
 				/>
 			</div>
