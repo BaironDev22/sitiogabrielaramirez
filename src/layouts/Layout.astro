@@ -145,6 +145,20 @@ const {
 		<Footer />
 		
 		<script>
+			import { initAllMotions } from '../utils/motionInit';
+
+			function initPageMotion() {
+				requestAnimationFrame(() => {
+					initAllMotions();
+				});
+			}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initPageMotion, { once: true });
+			} else {
+				initPageMotion();
+			}
+
 			// Agregar clase durante la transición
 			document.addEventListener('astro:before-preparation', () => {
 				document.documentElement.classList.add('is-transitioning');
@@ -157,10 +171,7 @@ const {
 
 			// Reiniciar animaciones de Motion después de cada transición de página
 			document.addEventListener('astro:page-load', () => {
-				// Reinicializar Motion si está disponible
-				if (typeof window !== 'undefined' && 'initAllMotions' in window) {
-					(window as any).initAllMotions();
-				}
+				initPageMotion();
 			});
 		</script>
 		

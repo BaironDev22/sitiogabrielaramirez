@@ -14,6 +14,33 @@ export interface MotionOptions {
 // Easing profesional para transiciones suaves
 const smoothEasing = [0.25, 0.1, 0.25, 1]; // cubic-bezier
 
+function getMotionElements(selector: string, motionKey: string) {
+  const attributeName = `data-motion-${motionKey}-bound`;
+
+  return Array.from(document.querySelectorAll(selector)).filter((el) => {
+    const element = el as HTMLElement;
+
+    if (element.hasAttribute(attributeName)) {
+      return false;
+    }
+
+    element.setAttribute(attributeName, 'true');
+    return true;
+  });
+}
+
+function shouldAnimateOnce(el: Element) {
+  return (el as HTMLElement).hasAttribute('data-animate-once');
+}
+
+function hasPlayedMotion(el: Element, motionKey: string) {
+  return (el as HTMLElement).hasAttribute(`data-motion-${motionKey}-played`);
+}
+
+function markMotionAsPlayed(el: Element, motionKey: string) {
+  (el as HTMLElement).setAttribute(`data-motion-${motionKey}-played`, 'true');
+}
+
 /**
  * Inicializa animaciones fade up para elementos con data-animate
  * Se ejecuta cada vez que el elemento entra en el viewport
@@ -25,17 +52,31 @@ export function initFadeUp(selector = '[data-animate="fade-up"]', options: Motio
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'fade-up');
   
   elements.forEach((el) => {
     inView(
       el,
       () => {
+        const animateOnce = shouldAnimateOnce(el);
+
+        if (animateOnce && hasPlayedMotion(el, 'fade-up')) {
+          return;
+        }
+
+        if (animateOnce) {
+          markMotionAsPlayed(el, 'fade-up');
+        }
+
         animate(
           el as HTMLElement,
           { opacity: [0, 1], y: [30, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (animateOnce) {
+          return;
+        }
         
         return () => {
           animate(
@@ -60,17 +101,31 @@ export function initFadeIn(selector = '[data-animate="fade-in"]', options: Motio
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'fade-in');
   
   elements.forEach((el) => {
     inView(
       el,
       () => {
+        const animateOnce = shouldAnimateOnce(el);
+
+        if (animateOnce && hasPlayedMotion(el, 'fade-in')) {
+          return;
+        }
+
+        if (animateOnce) {
+          markMotionAsPlayed(el, 'fade-in');
+        }
+
         animate(
           el as HTMLElement,
           { opacity: [0, 1] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (animateOnce) {
+          return;
+        }
         
         return () => {
           animate(
@@ -95,7 +150,7 @@ export function initStagger(selector = '[data-animate="stagger"]', options: Moti
     duration = 0.7,
   } = options;
 
-  const containers = document.querySelectorAll(selector);
+  const containers = getMotionElements(selector, 'stagger');
   
   containers.forEach((container) => {
     const children = Array.from(container.children);
@@ -140,7 +195,7 @@ export function initSlideLeft(selector = '[data-animate="slide-left"]', options:
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'slide-left');
   
   elements.forEach((el) => {
     inView(
@@ -175,7 +230,7 @@ export function initSlideRight(selector = '[data-animate="slide-right"]', option
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'slide-right');
   
   elements.forEach((el) => {
     inView(
@@ -210,17 +265,31 @@ export function initScale(selector = '[data-animate="scale"]', options: MotionOp
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'scale');
   
   elements.forEach((el) => {
     inView(
       el,
       () => {
+        const animateOnce = shouldAnimateOnce(el);
+
+        if (animateOnce && hasPlayedMotion(el, 'scale')) {
+          return;
+        }
+
+        if (animateOnce) {
+          markMotionAsPlayed(el, 'scale');
+        }
+
         animate(
           el as HTMLElement,
           { opacity: [0, 1], scale: [0.9, 1] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (animateOnce) {
+          return;
+        }
         
         return () => {
           animate(
@@ -245,7 +314,7 @@ export function initFadeDown(selector = '[data-animate="fade-down"]', options: M
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'fade-down');
   
   elements.forEach((el) => {
     inView(
@@ -280,7 +349,7 @@ export function initSlideUp(selector = '[data-animate="slide-up"]', options: Mot
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'slide-up');
   
   elements.forEach((el) => {
     inView(
@@ -315,7 +384,7 @@ export function initSlideDown(selector = '[data-animate="slide-down"]', options:
     delay = 0,
   } = options;
 
-  const elements = document.querySelectorAll(selector);
+  const elements = getMotionElements(selector, 'slide-down');
   
   elements.forEach((el) => {
     inView(

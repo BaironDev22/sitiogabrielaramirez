@@ -16,7 +16,7 @@ import Button from '../ui/Button.astro';
       
       <!-- Contenido principal -->
       <div class="space-y-10">
-        <div class="flex items-center space-x-3" data-animate="fade-in">
+        <div class="flex items-center space-x-3" data-animate="fade-in" data-animate-once>
           <div class="h-px w-8 bg-dark"></div>
           <p class="text-dark font-medium tracking-wider uppercase text-xs italic">
              Bienvenida a tu espacio de sexualidad consciente.
@@ -24,18 +24,18 @@ import Button from '../ui/Button.astro';
         </div>
 
         <!-- Título principal -->
-        <h1 class="text-6xl lg:text-8xl font-serif font-normal text-dark leading-[1.1]" data-animate="fade-up">
+        <h1 class="text-6xl lg:text-8xl font-serif font-normal text-dark leading-[1.1]" data-animate="fade-up" data-animate-once>
           Habitar<br>
           <span class="text-coral-500 font-italianno text-7xl lg:text-9xl font-normal italic">el Deseo</span>
         </h1>
 
         <!-- Descripción -->
-        <p class="text-lg text-dark/70 leading-relaxed max-w-xl font-light" data-animate="fade-up">
+        <p class="text-lg text-dark/70 leading-relaxed max-w-xl font-light" data-animate="fade-up" data-animate-once>
           Desarrolla presencia, deseo y placer desde una educación íntima consciente, evolutiva y profunda.
         </p>
 
         <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-5 pt-6" data-animate="fade-up">
+        <div class="flex flex-col sm:flex-row gap-5 pt-6" data-animate="fade-up" data-animate-once>
           <Button variant="primary" size="lg" href="/formulario-retiro">
             Únete a esta experiencia transformadora
           </Button>
@@ -44,27 +44,27 @@ import Button from '../ui/Button.astro';
           </Button>
         </div>
 
-        <!-- Badge de confianza -->
+        <!-- CTA de mujeres -->
         <div class="flex items-center space-x-4 pt-6">
-          <div class="flex -space-x-3">
-            <div class="w-12 h-12 rounded-full bg-coral-100 border-2 border-main flex items-center justify-center text-xs font-semibold text-coral-600">
-              100+
-            </div>
-            <div class="w-12 h-12 rounded-full bg-coral-100 border-2 border-main flex items-center justify-center">
-              <svg class="w-5 h-5 text-coral-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          <div class="flex">
+            <!-- Mujer con moño recogido y cuerpo estilizado -->
+            <div class="w-12 h-12 rounded-full bg-coral-200 border-2 border-main flex items-center justify-center">
+              <svg class="w-6 h-6 text-coral-700" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="6.5" r="3"/>
+                <ellipse cx="15" cy="3.5" rx="2" ry="1.5"/>
+                <path d="M9.5 10.5 L8 21 H16 L14.5 10.5 Q12 9 9.5 10.5Z"/>
               </svg>
             </div>
           </div>
           <p class="text-sm text-dark/60 font-light">
-            <span class="font-medium text-dark">Más de 100 parejas transformadas</span><br>
-            en experiencias presenciales
+            <span class="font-medium text-dark">Espacios íntimos para mujeres</span><br>
+            que eligen habitarse por completo
           </p>
         </div>
       </div>
 
       <!-- Imagen principal (placeholder por ahora) -->
-      <div class="relative" data-animate="scale">
+      <div class="relative" data-animate="scale" data-animate-once>
           <div class="relative rounded-4xl overflow-hidden shadow-2xl shadow-black/10 aspect-3/4">
             <img
               src="images/muhammadh-saamy-NsTVBS1lBbk-unsplash.jpg"
@@ -86,7 +86,3 @@ import Button from '../ui/Button.astro';
   </div>
 </section>
 
-<script>
-  import { initAllMotions } from '../../utils/motionInit';
-  initAllMotions();
-</script>

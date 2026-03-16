@@ -126,150 +126,215 @@
 </div>
 
 <script>
-  function initMobileMenu() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    let mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
-    const navbar = document.getElementById('navbar');
+  type NavbarController = {
+    cleanupMenu?: () => void;
+    cleanupScroll?: () => void;
+    closeMenu?: () => void;
+    lifecycleBound?: boolean;
+  };
 
-    if (!mobileMenuButton || !mobileMenuClose || !mobileMenu || !mobileMenuOverlay) {
-      return; // Exit if elements don't exist
+  const navbarWindow = window as typeof window & {
+    __navbarController?: NavbarController;
+  };
+
+  const navbarController = navbarWindow.__navbarController ??= {};
+
+  function getNavbarElements() {
+    return {
+      mobileMenuButton: document.getElementById('mobile-menu-button') as HTMLButtonElement | null,
+      mobileMenuClose: document.getElementById('mobile-menu-close') as HTMLButtonElement | null,
+      mobileMenu: document.getElementById('mobile-menu') as HTMLElement | null,
+      mobileMenuOverlay: document.getElementById('mobile-menu-overlay') as HTMLElement | null,
+      mobileNavLinks: document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>,
+      navbar: document.getElementById('navbar') as HTMLElement | null,
+    };
+  }
+
+  function resetHamburger(button: HTMLButtonElement | null) {
+    const lines = button?.querySelectorAll('span') as NodeListOf<HTMLElement>;
+
+    if (!lines?.length) {
+      return;
     }
 
-    // Function to open mobile menu
+    lines[0].style.transform = '';
+    lines[1].style.opacity = '1';
+    lines[2].style.transform = '';
+  }
+
+  function resetMenuLinks(links: NodeListOf<HTMLElement>) {
+    links.forEach((link) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateX(20px)';
+      link.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      link.style.transitionDelay = '0ms';
+    });
+  }
+
+  function resetNavbarState() {
+    const {
+      mobileMenuButton,
+      mobileMenu,
+      mobileMenuOverlay,
+      mobileNavLinks,
+      navbar,
+    } = getNavbarElements();
+
+    mobileMenu?.classList.add('translate-x-full');
+    mobileMenuOverlay?.classList.add('opacity-0', 'invisible');
+    navbar?.classList.remove('navbar-blurred');
+    navbar?.style.setProperty('transform', 'translateY(0)');
+    document.body.style.overflow = '';
+    document.body.classList.remove('menu-open');
+
+    resetHamburger(mobileMenuButton);
+    resetMenuLinks(mobileNavLinks);
+  }
+
+  function initMobileMenu() {
+    const {
+      mobileMenuButton,
+      mobileMenuClose,
+      mobileMenu,
+      mobileMenuOverlay,
+      mobileNavLinks,
+      navbar,
+    } = getNavbarElements();
+
+    if (!mobileMenuButton || !mobileMenuClose || !mobileMenu || !mobileMenuOverlay) {
+      navbarController.closeMenu = undefined;
+      return () => {};
+    }
+
+    const abortController = new AbortController();
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenuOverlay.classList.add('opacity-0', 'invisible');
+      navbar?.classList.remove('navbar-blurred');
+      document.body.style.overflow = '';
+      document.body.classList.remove('menu-open');
+
+      resetHamburger(mobileMenuButton);
+      resetMenuLinks(document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>);
+    }
+
     function openMobileMenu() {
-      mobileMenu?.classList.remove('translate-x-full');
-      mobileMenuOverlay?.classList.remove('opacity-0', 'invisible');
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
       navbar?.classList.add('navbar-blurred');
       document.body.style.overflow = 'hidden';
       document.body.classList.add('menu-open');
-      
-      // Animate hamburger to X
-      const lines = mobileMenuButton?.querySelectorAll('span') as NodeListOf<HTMLElement>;
-      if (lines) {
+
+      const lines = mobileMenuButton.querySelectorAll('span') as NodeListOf<HTMLElement>;
+      if (lines.length === 3) {
         lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         lines[1].style.opacity = '0';
         lines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
       }
-      
-      // Animate menu items - Re-query to get current elements
+
       const currentNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
       currentNavLinks.forEach((link, index) => {
-        setTimeout(() => {
-          link.style.opacity = '1';
-          link.style.transform = 'translateX(0)';
-        }, index * 100);
+        link.style.transitionDelay = `${index * 70}ms`;
+        link.style.opacity = '1';
+        link.style.transform = 'translateX(0)';
       });
     }
 
-    // Function to close mobile menu
-    function closeMobileMenu() {
-      mobileMenu?.classList.add('translate-x-full');
-      mobileMenuOverlay?.classList.add('opacity-0', 'invisible');
-      navbar?.classList.remove('navbar-blurred');
-      document.body.style.overflow = '';
-      document.body.classList.remove('menu-open');
-      
-      // Reset hamburger
-      const lines = mobileMenuButton?.querySelectorAll('span') as NodeListOf<HTMLElement>;
-      if (lines) {
-        lines[0].style.transform = '';
-        lines[1].style.opacity = '1';
-        lines[2].style.transform = '';
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
       }
-      
-      // Reset menu items animation
-      const currentNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
-      currentNavLinks.forEach((link: HTMLElement) => {
-        link.style.opacity = '0';
-        link.style.transform = 'translateX(20px)';
-      });
     }
 
-    // Clear any existing handlers by removing and re-adding click events
-    // We'll use a data attribute to track if already initialized
-    if (!mobileMenuButton.hasAttribute('data-menu-initialized')) {
-      mobileMenuButton.addEventListener('click', openMobileMenu);
-      mobileMenuButton.setAttribute('data-menu-initialized', 'true');
-    }
-    
-    if (!mobileMenuClose.hasAttribute('data-menu-initialized')) {
-      mobileMenuClose.addEventListener('click', closeMobileMenu);
-      mobileMenuClose.setAttribute('data-menu-initialized', 'true');
-    }
-    
-    if (!mobileMenuOverlay.hasAttribute('data-menu-initialized')) {
-      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-      mobileMenuOverlay.setAttribute('data-menu-initialized', 'true');
-    }
+    resetMenuLinks(mobileNavLinks);
+    navbarController.closeMenu = closeMobileMenu;
 
-    // Add listeners to nav links
-    mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
-    mobileNavLinks.forEach((link: HTMLElement) => {
-      if (!link.hasAttribute('data-menu-initialized')) {
-        link.addEventListener('click', () => {
-          setTimeout(closeMobileMenu, 300);
-        });
-        link.setAttribute('data-menu-initialized', 'true');
-      }
-      
-      // Ensure proper styling
-      link.style.opacity = '0';
-      link.style.transform = 'translateX(20px)';
-      link.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    mobileMenuButton.addEventListener('click', openMobileMenu, { signal: abortController.signal });
+    mobileMenuClose.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
+    document.addEventListener('keydown', handleEscape, { signal: abortController.signal });
+
+    mobileNavLinks.forEach((link) => {
+      link.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
     });
 
-    // Close menu when pressing Escape key (only add once)
-    if (!document.body.hasAttribute('data-escape-initialized')) {
-      document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          closeMobileMenu();
-        }
-      });
-      document.body.setAttribute('data-escape-initialized', 'true');
-    }
+    return () => {
+      abortController.abort();
+
+      if (navbarController.closeMenu === closeMobileMenu) {
+        navbarController.closeMenu = undefined;
+      }
+    };
   }
 
   function initNavbarScroll() {
-    const navbar = document.getElementById('navbar');
-    let lastScrollY = window.scrollY;
+    const navbar = document.getElementById('navbar') as HTMLElement | null;
+
+    if (!navbar) {
+      return () => {};
+    }
+
+    let lastScrollY = Math.max(window.scrollY, 0);
     let ticking = false;
 
     function updateNavbar() {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        // Scrolling down - hide navbar
-        navbar?.style.setProperty('transform', 'translateY(-100%)');
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling up - show navbar
-        navbar?.style.setProperty('transform', 'translateY(0)');
+      const currentScrollY = Math.max(window.scrollY, 0);
+
+      if (document.body.classList.contains('menu-open') || currentScrollY <= 80) {
+        navbar.style.setProperty('transform', 'translateY(0)');
+      } else if (currentScrollY > lastScrollY) {
+        navbar.style.setProperty('transform', 'translateY(-100%)');
+      } else {
+        navbar.style.setProperty('transform', 'translateY(0)');
       }
-      
+
       lastScrollY = currentScrollY;
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
+    function handleScroll() {
       if (!ticking) {
         requestAnimationFrame(updateNavbar);
         ticking = true;
       }
-    });
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', updateNavbar);
+    updateNavbar();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateNavbar);
+    };
   }
 
-  // Initialize on first load
-  document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
-    initNavbarScroll();
-  });
+  function initNavbar() {
+    navbarController.cleanupMenu?.();
+    navbarController.cleanupScroll?.();
+    resetNavbarState();
+    navbarController.cleanupMenu = initMobileMenu();
+    navbarController.cleanupScroll = initNavbarScroll();
+  }
 
-  // Reinitialize after page transitions
-  document.addEventListener('astro:page-load', () => {
-    initMobileMenu();
-  });
+  if (!navbarController.lifecycleBound) {
+    document.addEventListener('astro:before-preparation', () => {
+      navbarController.closeMenu?.();
+    });
+
+    document.addEventListener('astro:page-load', () => {
+      initNavbar();
+    });
+
+    navbarController.lifecycleBound = true;
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar, { once: true });
+  } else {
+    initNavbar();
+  }
 </script>
 
 <style>
