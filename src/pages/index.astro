@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/sections/Hero.astro';
 import AboutMission from '../components/sections/AboutMission.astro';
 import BlogSection from '../components/sections/BlogSection.astro';
 import TeamSection from '../components/sections/TeamSection.astro';
 import Button from '../components/ui/Button.astro';
+import studioImage from '../assets/images/kaylee-garrett-GaprWyIw66o-unsplash.jpg';
+import masteryImage from '../assets/images/jared-rice-NTyBbu66_SI-unsplash.jpg';
 ---
 
 <Layout title="SexoloGabi - Inteligencia Sexual Consciente">
@@ -64,9 +67,14 @@ import Button from '../components/ui/Button.astro';
 					<div class="absolute inset-0 bg-accent/10 rounded-full blur-2xl transform group-hover:scale-105 transition-transform duration-700"></div>
 					<div class="relative w-full aspect-4/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
 						<div class="absolute inset-0 bg-black/10 z-10"></div>
-						<img 
-							src="/images/kaylee-garrett-GaprWyIw66o-unsplash.jpg" 
-							alt="Grupo de personas practicando yoga al atardecer en la playa" 
+						<Image
+							src={studioImage}
+							alt="Grupo de personas practicando yoga al atardecer en la playa"
+							widths={[480, 768, 1100]}
+							sizes="(max-width: 1024px) 100vw, 50vw"
+							format="webp"
+							loading="lazy"
+							decoding="async"
 							class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
 						/>
 						<div class="absolute bottom-8 left-8 right-8 z-20 backdrop-blur-md bg-white/30 p-6 rounded-2xl border border-white/20">
@@ -118,6 +126,10 @@ import Button from '../components/ui/Button.astro';
 						<img 
 							src="/images/94c96f8f-7259-4614-9be0-1b698e53aa4e.jpeg" 
 							alt="Podcast" 
+							loading="lazy"
+							decoding="async"
+							width="800"
+							height="480"
 							class="w-full h-full object-cover object-center"
 						/>
 						<div class="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-b from-transparent to-white/80"></div>
@@ -163,6 +175,10 @@ import Button from '../components/ui/Button.astro';
 						<img 
 							src="/images/angelina-sarycheva-vFefVZLzQYU-unsplash.jpg" 
 							alt="Círculo Privado" 
+							loading="lazy"
+							decoding="async"
+							width="800"
+							height="480"
 							class="w-full h-full object-cover object-center"
 						/>
 						<div class="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-b from-transparent to-white/80"></div>
@@ -205,6 +221,10 @@ import Button from '../components/ui/Button.astro';
 						<img 
 							src="/images/nathan-dumlao-w5hhoYM_JsU-unsplash.jpg" 
 							alt="Contenido Inédito" 
+							loading="lazy"
+							decoding="async"
+							width="800"
+							height="480"
 							class="w-full h-full object-cover"
 						/>
 						<div class="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-b from-transparent to-white/80"></div>
@@ -262,9 +282,14 @@ import Button from '../components/ui/Button.astro';
 					<div class="flex flex-col lg:flex-row">
 						<!-- Imagen -->
 						<div class="lg:w-1/2 min-h-100 lg:min-h-full relative">
-							<img 
-								src="/images/jared-rice-NTyBbu66_SI-unsplash.jpg" 
-								alt="Gabriela Ramírez" 
+							<Image
+								src={masteryImage}
+								alt="Gabriela Ramírez"
+								widths={[640, 960, 1400]}
+								sizes="(max-width: 1024px) 100vw, 50vw"
+								format="webp"
+								loading="lazy"
+								decoding="async"
 								class="absolute inset-0 w-full h-full object-cover"
 							/>
 							<div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-10">
@@ -344,6 +369,8 @@ import Button from '../components/ui/Button.astro';
 						<img 
 							src="https://images.pexels.com/photos/19611076/pexels-photo-19611076.jpeg" 
 							alt="Paisaje brasileño con colinas verdes al amanecer" 
+							loading="lazy"
+							decoding="async"
 							class="w-full h-full object-cover" 
 						/>
 					</div>

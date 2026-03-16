@@ -13,6 +13,7 @@ export interface MotionOptions {
 
 // Easing profesional para transiciones suaves
 const smoothEasing = [0.25, 0.1, 0.25, 1]; // cubic-bezier
+const ENABLE_EXIT_ANIMATIONS = false;
 
 function getMotionElements(selector: string, motionKey: string) {
   const attributeName = `data-motion-${motionKey}-bound`;
@@ -77,6 +78,10 @@ export function initFadeUp(selector = '[data-animate="fade-up"]', options: Motio
         if (animateOnce) {
           return;
         }
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -126,6 +131,10 @@ export function initFadeIn(selector = '[data-animate="fade-in"]', options: Motio
         if (animateOnce) {
           return;
         }
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -167,6 +176,10 @@ export function initStagger(selector = '[data-animate="stagger"]', options: Moti
             easing: smoothEasing,
           } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -206,6 +219,10 @@ export function initSlideLeft(selector = '[data-animate="slide-left"]', options:
           { opacity: [0, 1], x: [-40, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -241,6 +258,10 @@ export function initSlideRight(selector = '[data-animate="slide-right"]', option
           { opacity: [0, 1], x: [40, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -290,6 +311,10 @@ export function initScale(selector = '[data-animate="scale"]', options: MotionOp
         if (animateOnce) {
           return;
         }
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -325,6 +350,10 @@ export function initFadeDown(selector = '[data-animate="fade-down"]', options: M
           { opacity: [0, 1], y: [-30, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -360,6 +389,10 @@ export function initSlideUp(selector = '[data-animate="slide-up"]', options: Mot
           { opacity: [0, 1], y: [40, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(
@@ -395,6 +428,10 @@ export function initSlideDown(selector = '[data-animate="slide-down"]', options:
           { opacity: [0, 1], y: [-40, 0] } as any,
           { duration, delay, easing: smoothEasing } as any
         );
+
+        if (!ENABLE_EXIT_ANIMATIONS) {
+          return;
+        }
         
         return () => {
           animate(

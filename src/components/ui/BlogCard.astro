@@ -22,13 +22,17 @@ const categoryColor = categoryColors[category as keyof typeof categoryColors] ||
 <article class="group cursor-pointer">
   <a href={`/blog/${slug}`} class="block">
     <!-- Imagen -->
-    <div class="relative overflow-hidden rounded-2xl mb-5 aspect-[4/3] bg-gray-100">
+    <div class="relative overflow-hidden rounded-2xl mb-5 aspect-4/3 bg-gray-100">
       <img 
         src={image} 
         alt={title}
+        loading="lazy"
+        decoding="async"
+        width="800"
+        height="600"
         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="absolute inset-0 bg-linear-to-t from-black/60 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
 
     <!-- Contenido -->

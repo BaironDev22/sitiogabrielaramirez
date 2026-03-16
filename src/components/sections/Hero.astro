@@ -1,6 +1,8 @@
 ---
 // Hero Section - Sección principal del home
+import { Image } from 'astro:assets';
 import Button from '../ui/Button.astro';
+import heroImage from '../../assets/images/muhammadh-saamy-NsTVBS1lBbk-unsplash.jpg';
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-secondary/10">
@@ -66,11 +68,17 @@ import Button from '../ui/Button.astro';
       <!-- Imagen principal (placeholder por ahora) -->
       <div class="relative" data-animate="scale" data-animate-once>
           <div class="relative rounded-4xl overflow-hidden shadow-2xl shadow-black/10 aspect-3/4">
-            <img
-              src="images/muhammadh-saamy-NsTVBS1lBbk-unsplash.jpg"
+            <Image
+              src={heroImage}
               alt="Pareja disfrutando de un atardecer en la playa"
+              widths={[480, 768, 1200]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              format="webp"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
               class="w-full h-full object-cover"
-            ></img>
+            />
           </div>
       </div>
     </div>

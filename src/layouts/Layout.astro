@@ -1,5 +1,4 @@
 	---
-import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 import Navbar from '../components/ui/Navbar.astro';
 import Footer from '../components/ui/Footer.astro';
@@ -22,9 +21,11 @@ const {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700;800&family=Titillium+Web:wght@300;400;600;700&display=swap" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<ViewTransitions />
 		<style>
 			/* Elementos con animaciones Motion empiezan ocultos para transición suave */
 			[data-animate] {
@@ -61,81 +62,7 @@ const {
 				background: #C04A2F;
 			}
 
-			/* Transiciones de página minimalistas */
-			@view-transition {
-				navigation: auto;
-			}
-
-			/* Animación de salida - fade out con ligero desplazamiento */
-			::view-transition-old(root) {
-				animation: fadeOutSlide 0.5s cubic-bezier(0.4, 0, 0.6, 1);
-			}
-
-			/* Animación de entrada - fade in con ligero desplazamiento */
-			::view-transition-new(root) {
-				animation: fadeInSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-			}
-
-			/* Hacer la transición más visible durante el desarrollo */
-			::view-transition-group(root) {
-				animation-duration: 0.5s;
-			}
-
-			@keyframes fadeOutSlide {
-				from {
-					opacity: 1;
-					transform: translateY(0) scale(1);
-				}
-				to {
-					opacity: 0;
-					transform: translateY(-20px) scale(0.98);
-				}
-			}
-
-			@keyframes fadeInSlide {
-				from {
-					opacity: 0;
-					transform: translateY(20px) scale(0.98);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0) scale(1);
-				}
-			}
-
-			/* Fallback para navegadores sin soporte */
-			@media (prefers-reduced-motion: reduce) {
-				::view-transition-old(root),
-				::view-transition-new(root) {
-					animation: none !important;
-				}
-			}
-
-			/* Indicador de carga durante la transición */
-			html.is-transitioning::before {
-				content: '';
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 3px;
-				background: linear-gradient(90deg, #D6664C, #E8A598);
-				z-index: 9999;
-				animation: loadingBar 0.5s ease-in-out;
-			}
-
-			@keyframes loadingBar {
-				from {
-					transform: translateX(-100%);
-				}
-				to {
-					transform: translateX(100%);
-				}
-			}
 		</style>
-		
-		<!-- Netlify Identity Widget - cargado con is:inline para evitar conflictos -->
-		<script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 	</head>
 	<body class="bg-main text-dark">
 		<Navbar />
@@ -148,6 +75,10 @@ const {
 			import { initAllMotions } from '../utils/motionInit';
 
 			function initPageMotion() {
+				if (!document.querySelector('[data-animate]')) {
+					return;
+				}
+
 				requestAnimationFrame(() => {
 					initAllMotions();
 				});
@@ -159,33 +90,7 @@ const {
 				initPageMotion();
 			}
 
-			// Agregar clase durante la transición
-			document.addEventListener('astro:before-preparation', () => {
-				document.documentElement.classList.add('is-transitioning');
-			});
-
-			// Remover clase después de la transición
-			document.addEventListener('astro:after-swap', () => {
-				document.documentElement.classList.remove('is-transitioning');
-			});
-
-			// Reiniciar animaciones de Motion después de cada transición de página
-			document.addEventListener('astro:page-load', () => {
-				initPageMotion();
-			});
-		</script>
-		
-		<script is:inline>
-			// Manejar invitaciones y login de Netlify Identity
-			if (window.netlifyIdentity) {
-				window.netlifyIdentity.on("init", user => {
-					if (!user) {
-						window.netlifyIdentity.on("login", () => {
-							document.location.href = "/admin/";
-						});
-					}
-				});
-			}
+			document.addEventListener('astro:page-load', initPageMotion);
 		</script>
 	</body>
 </html>
