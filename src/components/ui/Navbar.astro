@@ -192,41 +192,50 @@
   }
 
   function initMobileMenu() {
-    const {
-      mobileMenuButton,
-      mobileMenuClose,
-      mobileMenu,
-      mobileMenuOverlay,
-      mobileNavLinks,
-      navbar,
-    } = getNavbarElements();
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>;
+    const navbar = document.getElementById('navbar');
 
-    if (!mobileMenuButton || !mobileMenuClose || !mobileMenu || !mobileMenuOverlay) {
+    if (
+      !(mobileMenuButton instanceof HTMLButtonElement) ||
+      !(mobileMenuClose instanceof HTMLButtonElement) ||
+      !(mobileMenu instanceof HTMLElement) ||
+      !(mobileMenuOverlay instanceof HTMLElement)
+    ) {
       navbarController.closeMenu = undefined;
       return () => {};
     }
 
+    const menuButton = mobileMenuButton;
+    const menuCloseButton = mobileMenuClose;
+    const menuPanel = mobileMenu;
+    const menuOverlay = mobileMenuOverlay;
+    const navbarElement = navbar instanceof HTMLElement ? navbar : null;
+
     const abortController = new AbortController();
 
     function closeMobileMenu() {
-      mobileMenu.classList.add('translate-x-full');
-      mobileMenuOverlay.classList.add('opacity-0', 'invisible');
-      navbar?.classList.remove('navbar-blurred');
+      menuPanel.classList.add('translate-x-full');
+      menuOverlay.classList.add('opacity-0', 'invisible');
+      navbarElement?.classList.remove('navbar-blurred');
       document.body.style.overflow = '';
       document.body.classList.remove('menu-open');
 
-      resetHamburger(mobileMenuButton);
+      resetHamburger(menuButton);
       resetMenuLinks(document.querySelectorAll('.mobile-nav-link') as NodeListOf<HTMLElement>);
     }
 
     function openMobileMenu() {
-      mobileMenu.classList.remove('translate-x-full');
-      mobileMenuOverlay.classList.remove('opacity-0', 'invisible');
-      navbar?.classList.add('navbar-blurred');
+      menuPanel.classList.remove('translate-x-full');
+      menuOverlay.classList.remove('opacity-0', 'invisible');
+      navbarElement?.classList.add('navbar-blurred');
       document.body.style.overflow = 'hidden';
       document.body.classList.add('menu-open');
 
-      const lines = mobileMenuButton.querySelectorAll('span') as NodeListOf<HTMLElement>;
+      const lines = menuButton.querySelectorAll('span') as NodeListOf<HTMLElement>;
       if (lines.length === 3) {
         lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         lines[1].style.opacity = '0';
@@ -250,9 +259,9 @@
     resetMenuLinks(mobileNavLinks);
     navbarController.closeMenu = closeMobileMenu;
 
-    mobileMenuButton.addEventListener('click', openMobileMenu, { signal: abortController.signal });
-    mobileMenuClose.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
-    mobileMenuOverlay.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
+    menuButton.addEventListener('click', openMobileMenu, { signal: abortController.signal });
+    menuCloseButton.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
+    menuOverlay.addEventListener('click', closeMobileMenu, { signal: abortController.signal });
     document.addEventListener('keydown', handleEscape, { signal: abortController.signal });
 
     mobileNavLinks.forEach((link) => {
@@ -269,11 +278,13 @@
   }
 
   function initNavbarScroll() {
-    const navbar = document.getElementById('navbar') as HTMLElement | null;
+    const navbarElement = document.getElementById('navbar');
 
-    if (!navbar) {
+    if (!(navbarElement instanceof HTMLElement)) {
       return () => {};
     }
+
+    const navbar = navbarElement;
 
     let lastScrollY = Math.max(window.scrollY, 0);
     let ticking = false;
