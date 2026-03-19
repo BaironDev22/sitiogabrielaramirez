@@ -196,39 +196,94 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
+	import emailjs from '@emailjs/browser';
+
+	const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY;
+	const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID;
+	const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID;
+
 	// Funcionalidad del formulario
 	document.addEventListener('DOMContentLoaded', function() {
-		const form = document.querySelector('form');
+		const form = document.querySelector('form') as HTMLFormElement | null;
 		
 		if (form) {
-			form.addEventListener('submit', function(e) {
+			form.addEventListener('submit', async function(e) {
 				e.preventDefault();
-				
-				// Aquí puedes añadir la lógica para enviar el formulario
-				// Por ejemplo, usando fetch para enviar a un endpoint
-				
-				const formData = new FormData(form);
-				const data = Object.fromEntries(formData);
-				
-				console.log('Datos del formulario:', data);
-				
-				// Mostrar mensaje de éxito temporal
+
 				const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 				
 				if (button) {
 					const originalText = button.textContent;
-					
-					button.textContent = '¡Solicitud Enviada!';
-					button.disabled = true;
-					button.classList.add('bg-green-500', 'hover:bg-green-600');
-					button.classList.remove('bg-cta', 'hover:bg-accent');
-					
-					setTimeout(() => {
+					const originalClasses = ['bg-cta', 'hover:bg-accent'];
+					const successClasses = ['bg-green-500', 'hover:bg-green-600'];
+					const errorClasses = ['bg-red-500', 'hover:bg-red-600'];
+
+					const resetButton = () => {
 						button.textContent = originalText;
 						button.disabled = false;
-						button.classList.remove('bg-green-500', 'hover:bg-green-600');
-						button.classList.add('bg-cta', 'hover:bg-accent');
-					}, 3000);
+						button.classList.remove(...successClasses, ...errorClasses);
+						button.classList.add(...originalClasses);
+					};
+
+					button.textContent = 'Enviando...';
+					button.disabled = true;
+					button.classList.remove(...successClasses, ...errorClasses);
+					button.classList.add(...originalClasses);
+
+					if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+						button.textContent = 'Error de configuración';
+						button.classList.remove(...originalClasses);
+						button.classList.add(...errorClasses);
+
+						setTimeout(() => {
+							resetButton();
+						}, 3500);
+
+						return;
+					}
+
+					const formData = new FormData(form);
+					const templateParams = {
+						nombre: String(formData.get('nombre') || ''),
+						email: String(formData.get('email') || ''),
+						telefono: String(formData.get('telefono') || ''),
+						mensaje: String(formData.get('mensaje') || ''),
+						experiencia: String(formData.get('experiencia') || ''),
+						terminos: formData.get('terminos') ? 'Sí' : 'No',
+						fecha_envio: new Date().toLocaleString('es-MX')
+					};
+
+					try {
+						await emailjs.send(
+							EMAILJS_SERVICE_ID,
+							EMAILJS_TEMPLATE_ID,
+							templateParams,
+							{ publicKey: EMAILJS_PUBLIC_KEY }
+						);
+					
+						button.textContent = '¡Solicitud Enviada!';
+						button.classList.remove(...originalClasses, ...errorClasses);
+						button.classList.add(...successClasses);
+						form.reset();
+
+						setTimeout(() => {
+							resetButton();
+						}, 3000);
+					} catch (error) {
+						if (error && typeof error === 'object' && 'status' in error && 'text' in error) {
+							const emailJsError = error as { status: number; text: string };
+							console.error(`Error enviando formulario con EmailJS [${emailJsError.status}]: ${emailJsError.text}`);
+						} else {
+							console.error('Error enviando formulario con EmailJS:', error);
+						}
+						button.textContent = 'Error al enviar';
+						button.classList.remove(...originalClasses, ...successClasses);
+						button.classList.add(...errorClasses);
+					
+						setTimeout(() => {
+							resetButton();
+						}, 3500);
+					}
 				}
 			});
 		}
